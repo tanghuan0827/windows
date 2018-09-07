@@ -1,0 +1,33 @@
+total 112
+-rwxr-xr-x 1 root root 207 Aug 14 02:35 addem
+lrwxrwxrwx 1 root root   8 Aug 14 02:32 multem -> test6.sh
+-rw-r--r-- 1 root root 126 Aug 14 04:22 test
+-rw-r--r-- 1 root root 126 Aug 14 02:45 test10.sh
+-rw-r--r-- 1 root root 102 Aug 14 02:51 test11.sh
+-rw-r--r-- 1 root root 239 Aug 14 02:55 test12.sh
+-rw-r--r-- 1 root root 114 Aug 14 03:00 test13.sh
+-rw-r--r-- 1 root root 103 Aug 14 03:01 test14.sh
+-rw-r--r-- 1 root root 259 Aug 14 03:04 test15.sh
+-rw-r--r-- 1 root root 364 Aug 14 03:10 test16.sh
+-rw-r--r-- 1 root root 420 Aug 14 03:14 test17.sh
+-rw-r--r-- 1 root root 184 Aug 14 02:16 test1.sh
+-rw-r--r-- 1 root root   0 Aug 14 04:32 test2
+-rw-r--r-- 1 root root   4 Aug 14 03:42 test21.hs
+-rw-r--r-- 1 root root 120 Aug 14 03:43 test21.sh
+-rw-r--r-- 1 root root 143 Aug 14 03:50 test22.sh
+-rw-r--r-- 1 root root 125 Aug 14 03:52 test23.sh
+-rw-r--r-- 1 root root 127 Aug 14 04:06 test24.sh
+-rw-r--r-- 1 root root 173 Aug 14 04:09 test25.sh
+-rw-r--r-- 1 root root 246 Aug 14 04:16 test26.sh
+-rw-r--r-- 1 root root 135 Aug 14 04:19 test27.sh
+-rw-r--r-- 1 root root 171 Aug 14 04:21 test28.sh
+-rw-r--r-- 1 root root 164 Aug 14 02:18 test2.sh
+-rw-r--r-- 1 root root  69 Aug 14 02:19 test3.sh
+-rw-r--r-- 1 root root 135 Aug 14 02:22 test4.sh
+-rwxr-xr-x 1 root root  77 Aug 14 02:24 test5.sh
+-rwxr-xr-x 1 root root 207 Aug 14 02:35 test6.sh
+-rw-r--r-- 1 root root 152 Aug 14 02:37 test7.sh
+-rw-r--r-- 1 root root  87 Aug 14 02:40 test8.sh
+-rw-r--r-- 1 root root 139 Aug 14 02:42 test9.sh
+root     tty1         2018-08-13 21:01
+root     pts/2        2018-08-14 02:49 (192.168.43.245)

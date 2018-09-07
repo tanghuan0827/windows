@@ -1,0 +1,7 @@
+CREATE TABLE `ay_test` (
+    `id` varchar(32)  NOT NULL,
+    `name` varchar(10) DEFAULT NULL  ,
+    `birth_date` timestamp(6),
+    `remark` text DEFAULT NULL  ,
+     PRIMARY KEY (`id`)
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8;

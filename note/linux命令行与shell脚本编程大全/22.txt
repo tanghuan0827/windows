@@ -1,0 +1,19 @@
+gawk进阶
+再探gawk
+在gawk程序中使用变量
+使用结构化的命令
+格式化打印
+使用函数
+
+处理可能遇到的各种数据格式化的任务
+
+使用变量
+内建变量
+自定义变量
+
+gawk 'BEGIN{FS=","; OFS="<-->"} {print $1,$2,$3}' data11
+ gawk 'BEGIN{FIELDWIDTHS="3 5 2 5"}{
+print $1,$2,$3,$4}' datalb
+
+
+

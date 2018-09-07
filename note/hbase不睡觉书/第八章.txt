@@ -1,0 +1,21 @@
+hbase的性能调优
+1 调整堆内存
+	export HBASE_HEAPSIZE=8G
+2 调整PermSize
+	hbase-env.sh 
+	jdk8可以删除 Permsize这两行
+	
+3 JVM使用的最大内存
+	-Xms4g  -Xmx4g
+
+永远保留10%的内存给机器操作
+
+尽量避免过长的Full GC发生
+
+ParallelGC  CMS
+G1GC
+
+============================================================
+Memstore的专属JVM策略MSLAB
+	
+

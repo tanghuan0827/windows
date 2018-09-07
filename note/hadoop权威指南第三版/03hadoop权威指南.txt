@@ -1,0 +1,18 @@
+3.3 命令行接口
+	hadoop fs -copyFromLocal /data/input/hello.txt /usr/local/2.txt
+	hadoop fs -mkdir -p /usr/local
+
+	
+	打包的命令
+	 javac -classpath ${HADOOP_HOME}/share/hadoop/common/hadoop-common-2.6.5.jar -d ${HADOOP_HOME}/class /temp/tomwhite-hadoop-book-79115c5/ch03/src/main/java/URLCat.java 
+
+	  hadoop  classpath ${HADOOP_HOME}/share/hadoop/common/hadoop-common-2.6.5.jar URLCat /user/hadoop/a.txt
+
+	  hadoop URLCat hdfs://mycluster/user/hadoop/a.txt
+
+	  ==================================================================
+	  hadoop archive -archiveName files.har -p /usr/local /usr
+
+	  hadoop fs -ls /usr/files.har
+
+	  hadoop fs -rmr /usr/files.har

@@ -1,0 +1,71 @@
+		@RequestMapping("/index")
+        public String index(){
+            return "ap805/index";
+        }
+
+		//查询所有的员工信息 使用了ajax请求
+        @RequestMapping("/listX")
+        @ResponseBody
+        public List getOne(){
+
+            List<Ap805> ap805List = ap805Service.getOne();
+            return ap805List;
+        }
+		
+		============================================================
+		Ap805Mapper.xml
+		<select id="getOne" parameterType="string" resultMap="ap805Map">
+         SELECT
+            a.date_f,
+            a.rank_f,
+            a.name_f,
+            a.long_f,
+            a.long_change_f,
+            a.long_percent_f,
+            a.shoft_f,
+            a.short_change_f,
+            a.short_percent_f,
+            a.net_long_f,
+            a.net_long_change_f,
+            a.net_short_f,
+            a.net_short_change_f,
+            a.net_short_change_percent_f,
+            a.volumne_f,
+            a.volumne_change_f,
+            a.volume_percent_f,
+            a.clear_price_f
+            FROM
+            ap805 a
+            where a.name_f=#{str}
+            order by date_f
+    </select>
+	============================================================
+	CREATE TABLE `ap805` (
+	  `date_f` date DEFAULT NULL,
+	  `rank_f` varchar(255) DEFAULT NULL,
+	  `name_f` varchar(255) DEFAULT NULL,
+	  `long_f` decimal(20,4) DEFAULT NULL,
+	  `long_change_f` decimal(20,4) DEFAULT NULL,
+	  `long_percent_f` varchar(255) DEFAULT NULL,
+	  `shoft_f` decimal(20,4) DEFAULT NULL,
+	  `short_change_f` decimal(20,4) DEFAULT NULL,
+	  `short_percent_f` varchar(255) DEFAULT NULL,
+	  `net_long_f` decimal(20,4) DEFAULT NULL,
+	  `net_long_change_f` decimal(20,4) DEFAULT NULL,
+	  `net_short_f` decimal(20,4) DEFAULT NULL,
+	  `net_short_change_f` decimal(20,4) DEFAULT NULL,
+	  `net_short_change_percent_f` varchar(255) DEFAULT NULL,
+	  `volumne_f` decimal(20,4) DEFAULT NULL,
+	  `volumne_change_f` decimal(20,4) DEFAULT NULL,
+	  `volume_percent_f` varchar(255) DEFAULT NULL,
+	  `clear_price_f` decimal(20,2) DEFAULT NULL
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+	============================================================
+	excel
+	date_f,rank_f,name_f,long_f,long_change_f,long_percent_f,shoft_f,short_change_f,short_percent_f,net_long_f,net_long_change_f,net_short_f,net_short_change_f,net_short_change_percent_f,volumne_f,volumne_change_f,volume_percent_f,clear_price
+	
+	============================================================
+	
+
+

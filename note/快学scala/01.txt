@@ -1,0 +1,28 @@
+scala程序并不是解释器，你输入的内容被快速的编译成字节码，这段字节码交给java虚拟机执行。
+
+1.2 声明值和变量
+	val不能改变内容
+	var能改变变量的内容
+	
+	val greeting:String=null
+	
+1.3 常用类型
+	Byte Char Short Int Long Float Double  Boolean
+	这些类型是类
+	
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+

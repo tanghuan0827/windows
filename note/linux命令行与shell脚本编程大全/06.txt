@@ -1,0 +1,172 @@
+linux环境变量
+什么是环境变量
+创建自己的局部变量
+删除环境变量
+默认shell环境变量
+设置PATH环境变量
+定位环境变量
+数组变量
+
+bash shell环境变量分为两类
+全局变量和环境变量
+
+查看全局的环境变量
+printenv
+
+printenv HOME
+
+局部变量
+只能在定义它们的进程中可见
+
+查看所有的环境变量，包括局部变量， 全局变量  用户定义变量
+set
+
+自己定义的局部变量用小写 系统环境变量用大写
+
+变量名 等号和值之间没有空格。在赋值加空格，bash shell就会将其当做命令
+
+生成一个子shell，在子shell中无法查看用户定义变量my_variable
+
+设置全局环境变量  创建一个局部环境变量，再把他导出到全局环境中
+my_variable="I am hello now"
+export my_variable
+echo $my_variable
+
+bash
+echo $my_variable
+
+子shell无法重新定义并导出， 但父shell的仍然保留原先的值
+
+6.3 删除环境变量
+unset my_variable
+如果要使用变量，加$,如果要操作变量,不使用$
+
+在子shell中删除环境变量后，无法将效果反应到父shell中
+
+6.5设置PATH环境变量
+echo $PATH
+
+应用程序放置可执行文件的目录常常不在PATH环境变量包含的目录中，解决的办法是保证PATH环境变量包含了所有存放应用程序的目录
+
+只能临时获取修改环境变量的信息
+PATH=$PATH:/home/christine/scripts
+
+echo $PATH
+
+6.6定位系统环境变量
+
+/etc/profile
+$HOME/.bash_profile
+$HOME/.bashrc
+$HOME/.bash_login
+$HOME/.profile
+
+============================================================
+6.7 数组变量
+环境变量有一个很酷的特性，就是可以为数组使用。
+
+mytest=(one two three four five)
+echo $mytest
+
+echo ${mytest[2]}
+
+显示全部数组的变量
+echo ${mytest[*]}
+
+mytest[2]=seven
+
+echo ${mytest[*]}
+
+unset mytest
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,92 @@
+ ssh相互之间建立密钥
+ 
+    <property>
+        <name></name>
+        <value></value>
+    </property>
+
+ 
+ ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop@nn01
+ ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop@nn02
+ ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop@dn01
+ ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop@dn02
+ ssh-copy-id -i ~/.ssh/id_rsa.pub hadoop@dn03
+
+互相之间测试一把
+ ssh nn01
+ ssh nn01
+ ssh nn02
+ ssh nn01
+ ssh dn01
+ ssh nn01
+ ssh dn02
+ ssh nn01
+ ssh dn03
+ ssh nn01
+ 
+ ssh nn01
+ ssh nn02
+ ssh nn02
+ ssh nn02
+ ssh dn01
+ ssh nn02
+ ssh dn02
+ ssh nn02
+ ssh dn03
+ ssh nn02
+ 
+ ssh nn01
+ ssh dn01
+ ssh nn02
+ ssh dn01
+ ssh dn01
+ ssh dn01
+ ssh dn02
+ ssh dn01
+ ssh dn03
+ ssh dn01
+ 
+ ssh nn01
+ ssh dn02
+ ssh nn02
+ ssh dn02
+ ssh dn01
+ ssh dn02
+ ssh dn02
+ ssh dn02
+ ssh dn03
+ ssh dn02
+ 
+ ssh nn01
+ ssh dn03
+ ssh nn02
+ ssh dn03
+ ssh dn01
+ ssh dn03
+ ssh dn02
+ ssh dn03
+ ssh dn03
+ ssh dn03
+ 
+==================================================================
+export HADOOP_HOME=/usr/local/hadoop
+export HADOOP_PREFIX=$HADOOP_HOME
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export YARN_HOME=$HADOOP_HOME
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
+export HADOOP_INSTALL=$HADOOP_HOME
+
+
+hadoop-env.sh
+export HADOOP_NAMENODE_OPTS=" -Xms1024m -Xmx1024m -XX:+UseParallelGC"
+export HADOOP_DATANODE_OPTS=" -Xms1024m -Xmx1024m"
+export HADOOP_LOG_DIR=/data/logs/hadoop
+
+
+scp etc/hadoop/hdfs-site.xml hadoop@nn02:/usr/local/hadoop/etc/hadoop/
+scp etc/hadoop/hdfs-site.xml hadoop@dn01:/usr/local/hadoop/etc/hadoop/
+scp etc/hadoop/hdfs-site.xml hadoop@dn02:/usr/local/hadoop/etc/hadoop/
+scp etc/hadoop/hdfs-site.xml hadoop@dn03:/usr/local/hadoop/etc/hadoop/

@@ -1,0 +1,11 @@
+vim /etc/sysconfig/network-scripts/ifcfg-ens33
+IPADDR=192.168.0.102
+GATEWAY=192.168.0.1
+
+vim /etc/hosts
+bigdata-pro02.kfk.com 192.168.0.102
+
+service network restart
+
+本机的hosts
+192.168.0.102 bigdata-pro02.kfk.com

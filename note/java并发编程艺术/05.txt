@@ -1,0 +1,124 @@
+java中的锁
+5.1 Lock接口
+	锁是用来控制多个线程访问共享资源的方式。
+	synchronized 先获取锁再释放锁
+	先获取锁A,然后再获取锁B,当锁B获得后，释放A同时获取锁C
+	
+	Lock lock=new ReentrantLock();
+	lock.lock();
+	try{
+	} finally{
+		lock.unlock();
+	}
+
+5.2 队列同步器
+	getState() 
+	setState()  
+	compareAndSetState() 使用CAS设置当前状态，该方法能够保证状态设置的原子性
+	保证状态的改变是安全的。
+	
+	ReentrantLock ReentrantReadWriteLock  CountDownLatch
+	
+	使用者需要继承同步器并重写指定的方法
+	
+	，独占锁就是在同一时刻只能有一个线程获取到锁，而其他获取锁的线程只能处于同步队列中等待，只有获取锁的线程释放了锁，后继的线程才能够获取锁
+	
+	同步都没看懂???
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

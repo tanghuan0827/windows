@@ -1,0 +1,72 @@
+给虚拟机配置公钥
+cat ~/.ssh/id_rsa.pub
+
+git的官方教程
+https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git
+
+git的安装
+sudo yum install git
+
+设置用户名和密码  上传和下载无需输入密码
+git config --global user.name "tanghuan0827"
+git config --global user.email 1255196919@qq.com
+git config --global credential.helper store
+
+git remote add origin https://github.com/tanghuan0827/bigdata01.git
+
+查看git的配置信息
+vim ~/.gitconfig
+
+仅将当前分支作为推送分支 就可以使用 git push ,后面不需要添加什么
+git config --global push.default simple
+
+=======================================================
+https://git-scm.com/book/zh/v2/GitHub-%E8%B4%A6%E6%88%B7%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E9%85%8D%E7%BD%AE
+
+将根目录/作为git的目录
+cd /
+
+在根目录init
+sudo git init
+sudo chown -R kfk.kfk .git
+
+.git文件是否改变用户为kfk
+ll -a
+
+=======================================================
+git添加文件到github
+第一次添加可以是这样的
+git add ./*
+git commit -m '#'
+git push 
+
+一旦文件被添加过了 就可以使用 -am参数
+git commit -am '#'
+git push
+
+git push -u origin master
+
+=======================================================
+git删除文件
+git rm -r --cached /data/logs/hadoop/.*
+git commit -m '#'
+git push -u origin master
+
+
+
+
+=======================================================
+附录信息
+git config --list
+git config user.name
+
+git获得帮助信息
+git help
+
+git help commit
+
+=======================================================
+git pull https://github.com/tanghuan0827/bigdata01.git master
+
+git push -u origin master
+

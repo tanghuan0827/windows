@@ -1,0 +1,108 @@
+ls
+
+区分文件和目录
+ls -F
+
+显示隐藏文件
+ls -a
+
+ls -l hello
+
+创建文件
+touch test_one
+
+
+============================================================
+3.7
+mkdir -p New_Dir/Sub_Dir/Under_Dir
+
+显示各个层级以及目录
+ls -R New_Dir
+
+tree New_Dir/
+
+============================================================
+3.8 查看文件内容
+file hello.txt
+
+file new_dir
+
+file sl_data_file
+
+file /bin/ls
+
+显示行号
+cat -n hello.txt
+
+一次显示一屏的内容
+less hello.txt
+
+显示10行的内容
+tail hello.txt
+
+显示2行的内容
+tail -n 2 hello.txt
+
+tail -r会不断添加到文件内容
+
+head hello.txt
+
+head -5 hello.txt
+显示前5行的内容
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,161 @@
+
+第一章
+my-first-service
+
+mvn archetype:generate \
+-DarchetypeArtifactId=jersey-quickstart-grizzly2 \
+-DarchetypeGroupId=org.glassfish.jersey.archetypes \
+-DinteractiveMode=false \
+-DgroupId=my.restful \
+-DartifactId=my-first-service \
+-Dpackage=my.restful \
+-DarchetypeVersion=2.22.1 \
+
+http://localhost:8080/myapp/application.wadl
+http://localhost:8080/myapp/myresource
+
+curl http://localhost:8080/myapp/myresource -v
+curl http://localhost:8080/myapp/myresource -i
+
+1.5.2
+mvn archetype:generate
+-DarchetypeArtifactId=jersey-quickstart-webapp
+-DarchetypeGroupId=org.glassfish.jersey.archetypes
+-DinteractiveMode=false
+-DgroupId=my.restful
+-DartifactId=my-first-webapp
+-Dpackage=my.restful
+-DarchetypeVersion=2.22.1
+
+mvn archetype:generate -DarchetypeArtifactId=jersey-quickstart-webapp -DarchetypeGroupId=org.glassfish.jersey.archetypes -DinteractiveMode=false -DgroupId=my.restful -DartifactId=my-first-webapp -Dpackage=my.restful -DarchetypeVersion=2.22.1
+
+mvn:jetty run
+http://localhost:8080/webapi/myresource
+
+curl http://localhost:8080/webapi/myresource -i
+
+curl -X POST http://localhost:8080/webapi/myresource -d '<myDomain name="eric" value="hello"/>' -H "Content-type:application/xml"
+
+==================================================================
+1.8 REST调试工具
+	curl
+	Simple REST Client
+
+==================================================================
+第二章	REST API的设计
+	统一接口
+	安全性 不会是服务器端资源的状态发生改变
+	幂等性 多次访问，得到的资源状态是相同的
+	
+	2.1.2 PUT方法
+	@Consumes
+	@Produeces
+	
+==================================================================
+3.3 REST请求流程
+	ClientRequestFilter 客户端请求过滤器
+	WriteInterceptor  客户端写拦截器 aroundWriteTo 客户端序列化操作拦截
+	MessageBodyWriter执行序列化，流程从客户端过滤到服务器
+	服务器接收请求， 服务器前置请求过滤器 ContainerRequestFilter
+	
+	客户端请求过滤器 服务器请求过滤器 服务器响应过滤器 客户端响应过滤器
+	ClientRequestFilter  Authorization
+	ContainerRequestFilter 
+	ContainerResponseFilter
+	ClientResponseFilter
+	
+==================================================================
+3.5 REST拦截器
+	javax.ws.rs.Providers 是一种辅助接口，实现类用于辅助REST框架完成
+	过滤和读写拦截功能。
+	
+	成对出现，不区分服务端和客户端
+	ReadInterceptor
+	WriteInterceptor
+	
+	AirDynamicFeature 类匹配 方法名称匹配 请求方法类型匹配
+	
+	请求和响应过程的优先级的大小是不一致的
+	
+	通过手动注册到Application或者Configuration
+	注解为@Provider，被自动探测
+
+==================================================================
+REST服务与异步
+	异步机制和异步通信
+	
+	客户端是同步阻塞的
+	请求发出前，先注册事件通知，使用观察者模式实现回调机制，发出请求后
+	流程继续执行而不等待。当响应达到后，客户端处理请求，更新状态
+	
+==================================================================
+JAX-RS2的异步机制
+	
+	
+==================================================================
+4.3 基于http1.1 的异步通信
+	服务器和浏览器通信技术的第一种解决方案 客户端轮询技术 polling
+	client  server
+	定时间隔是一个坑
+	
+	4.3.2 Comet技术
+	Comet是反向Ajax技术集，包括长轮询和流两种技术的实现
+	
+	长连接通过keepAlive使http连接得以保持
+	
+	需要引入第三方工具包，实现相对复杂
+	
+==================================================================
+4.3.3 Web Hook异步通信
+	在处理完毕通过回调地址通知给客户端处理结果
+	不适合浏览器作为客户端 适用于另一个服务器作为客户端
+	同时http连接，回调线程和请求线程，多线程问题，需要具备相应状态的监控机制
+
+==================================================================
+4.3.4 SSE技术
+	核心基于EventSource接口的事件监听机制，包括onopen, onmessage, onerror
+	3个事件监听机制
+	跨语言。
+	浏览器无法在同一条连接上作出二次请求或者对服务端的相应作出响应。
+	
+==================================================================
+4.4 基于html5的异步通信机制
+	栈的服务端推送事件 SSE 技术
+	
+	发布订阅模式  广播模式
+	客户端创建EventSource实例并覆盖onEvent方法。
+	
+	广播模式
+
+==================================================================
+4.4.2 发布-订阅模式的实现
+	Application
+	
+==================================================================
+4.4.4 WebSocket技术
+尽量少的使用client实例
+
+==================================================================
+REST测试
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

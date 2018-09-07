@@ -1,0 +1,24 @@
+#!/bin/bash  
+#chkconfig: 2345 98 02
+#description: hbase master service
+
+RETVAL=0
+# Source hadoop environment service
+. /home/hbase/.bashrc
+start(){
+    su hbase -c "$HBASE_HOME/bin/hbase-daemon.sh start master"
+}
+stop(){
+    su hbase -c "$HBASE_HOME/bin/hbase-daemon.sh stop master"
+}
+
+case $1 in
+start)
+    start
+;;
+stop)
+    stop
+;;
+esac
+exit $RETVAL
+

@@ -1,0 +1,34 @@
+可见性标签的管理
+
+打开可见性标签
+vim hbase-site.xml
+	<property>
+		<name>hbase.coprocessor.region.classes</name>
+		<value>org.apache.hadoop.hbase.security.visibility.VisibilityController</value>
+	</property>
+	<property>
+		<name>hbase.coprocessor.master.classes</name>
+		<value>org.apache.hadoop.hbase.security.visibility.VisibilityController</value>
+	</property>
+
+developer
+!developer
+(manager | developer) & !market
+
+查询出来用户
+System.out.println(System.getProperty("user.name"));
+
+在hbase-site.xml中添加超级用户
+	<property>
+		<name>hbase.superuser</name>
+		<value>Administrator,hbase</value>
+	</property>
+
+完了再执行添加标签，可以查看到标签了
+
+批量设置标签
+set_visibility 'testlabel','manager',{COLUMNS =>['cf:name']}
+
+标签只存储在服务端，没有存储在客户端， 并不会随着Get 或者Scan返回客户端。
+
+

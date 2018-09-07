@@ -1,0 +1,93 @@
+xshell 虚拟机字体颜色的设置
+vim /etc/vimrc
+colorscheme delek
+hi Statement ctermfg =lightgreen
+hi Comment ctermfg =red
+hi String ctermfg =yellow
+hi Normal ctermfg =black
+
+newwhite
+将xshell的颜色
+浅黄色变为淡紫色
+深粉色变为淡灰色
+
+行距为2
+
+
+
+
+============================================================
+
+vim /etc/profile
+#终端提示符颜色
+export PS1="\[\e[31;1m\][\u @\h \w]$   \[\e[32;1m\]"
+
+#文件夹颜色
+LS_COLORS='no=00:fi=00:di=01;34;40:ln=37;40:'
+export LS_COLORS
+
+
+xshell 行距 5  			游标 橘颜色  		背景 黑色       字体大小   11
+
+xshell设置蓝色颜色
+白色变暗一点
+
+
+============================================================
+文件夹设置
+dircolors -p > ~/.dircolors
+
+!!!!!
+vim  ~/.dircolors
+DIR 47   
+
+vim ~/.bashrc
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+source ~/.bashrc
+
+#有时候不会自动加载 ~/.bashrc
+vim /etc/profile
+source ~/.bashrc
+
+=======================================================
+shell 里面调整字体 consolas  字号10 行距5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+虚拟机颜色设置 没有生效的
+hi Comment ctermfg =red
+hi Statement ctermfg =lightgreen
+hi String ctermfg =lightgreen
+hi Normal ctermfg =white
+hi Boolean ctermfg =lightgreen
+hi Character ctermfg =lightgreen

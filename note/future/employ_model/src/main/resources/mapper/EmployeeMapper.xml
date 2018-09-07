@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lvoyee.crud.dao.EmployeeMapper">
+
+    <resultMap type="employee" id="employeeAndDepartmentMap">
+        <id column="emp_id" property="empId"/>
+        <result column="emp_name" property="empName"/>
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
+        <result column="d_id" property="dId"/>
+        <association property="department"  javaType="department">
+            <id column="dept_id" property="deptId"/>
+            <result column="dept_name" property="deptName"/>
+        </association>
+    </resultMap>
+
+    <select id="getAll" resultMap="employeeAndDepartmentMap">
+        SELECT
+        e.*,d.*
+        FROM
+        tbl_emp e
+        left join  tbl_dept d
+        on e.d_id = d.dept_id
+  </select>
+
+    <update id="deleteEmp" parameterType="Integer">
+        delete FROM
+        tbl_emp
+        where emp_id=#{id}
+    </update>
+
+    <select id="getEmp" parameterType="Integer" resultType="com.lvoyee.crud.bean.Employee">
+        select * from tbl_emp
+        where emp_id = #{id}
+    </select>
+
+    <update id="updateEmp" parameterType="com.lvoyee.crud.bean.Employee">
+        update tbl_emp
+        set emp_id=#{empId},
+        emp_name = #{empName},
+        gender=#{gender},
+        email=#{email},
+        d_id=#{dId}
+        WHERE
+        emp_id=#{empId}
+
+    </update>
+
+    <update id="save" parameterType="com.lvoyee.crud.bean.Employee">
+        insert into tbl_emp (emp_name,gender,email,d_id) values (#{empName}, #{gender}, #{email}, #{dId});
+    </update>
+
+    <delete id="deleteBatch" parameterType="java.util.List">
+        DELETE from tbl_emp where emp_id IN
+        <foreach collection="list" index = "index" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+
+    </delete>
+
+    <update id="employeeBatchUpdate" parameterType="java.util.List">
+         <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+               update tbl_emp e
+               <set>
+                 e.emp_name = #{item.empName},
+                e.gender=#{item.gender},
+                e.email=#{item.email},
+                e.d_id=#{item.dId}
+               </set>
+               where e.emp_id = #{item.empId}
+        </foreach>
+    </update>
+
+    <select id="getPart" resultMap="employeeAndDepartmentMap" >
+      select e.* from tbl_emp e
+      limit #{startRow}, #{limit}
+    </select>
+
+    <update id="insertBatch" parameterType="java.util.List">
+        insert into tbl_emp(emp_id, emp_name,gender, email,d_id) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.empId}, #{item.empName}, #{item.gender}, #{item.email}, #{item.dId})
+        </foreach>
+    </update>
+</mapper>

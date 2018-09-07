@@ -1,0 +1,76 @@
+使用结构化命令
+使用if - then 语句
+嵌套if语句
+test命令
+复合条件测试
+使用双方括号和双括号
+case命令
+
+if pwd
+then
+	echo 'It worked'
+fi
+
+if nsdfg
+then
+	echo 'It worked'
+fi
+
+if command
+then
+	command
+else
+	command
+fi
+
+if command1
+then 
+	commands
+elif command2
+then
+	more commands
+fi
+
+test列出的条件成立，则退出并返回状态码， 如果不成立，则退出并返回非零的退出状态码
+
+test 为空或者为空字符串"" 则返回false
+否则返回true
+
+bash只能测试整数
+
+两个字符串比较
+st1 = str2
+str1 != str2
+str1 < str2
+str1 > str2
+-n str1      长度是否非0
+-z str1		 长度是否为零
+
+字符串比较 大于号和小于号必须转义 否则shell会把它们当做重定向符号
+if [ $val1 \> $val2 ]
+
+大写字母是小于小写字母的
+
+字符串大小
+
+字符串未在脚本中定义过，仍然长度为零
+-d  是否存在并且是一个目录
+-e  文件是否存在
+-f  是否存在并且是一个文件
+
+在尝试使用nt必须判断文件是否存在
+
+复合条件测试
+[ condition1 ] && [ condition2 ]
+[ condition1 ] || [ condition2 ]
+
+12.6 if-then的高级特性
+(( expression ))
+
+[[ expression ]]提供了模式匹配
+
+============================================================
+12.7 case命令
+
+
+

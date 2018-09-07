@@ -1,0 +1,68 @@
+vim /etc/profile
+
+export HBASE_HOME=/usr/local/hbase
+export HADOOP_CLASSPATH="$HADOOP_CLASSPATH:$HBASE_HOME/lib/*"
+ 
+ 
+${HADOOP_HOME}/bin/hadoop jar ${HBASE_HOME}/lib/hbase-server-1.2.6.1.jar rowcounter testlabel
+
+需要让Hadoop加载HBase的相关jar包才能运行MapReduce
+
+MapReduce的任务，慢速入门
+mymoney
+info:income   info:expense
+
+
+put 'mymoney','01','info:income','6000';
+put 'mymoney','02','info:income','6600';
+put 'mymoney','03','info:income','4000';
+put 'mymoney','04','info:income','5310';
+put 'mymoney','05','info:income','4500';
+put 'mymoney','06','info:income','5500';
+put 'mymoney','07','info:income','5600';
+put 'mymoney','08','info:income','4900';
+put 'mymoney','09','info:income','5600';
+put 'mymoney','10','info:income','6900';
+put 'mymoney','11','info:income','5800';
+put 'mymoney','12','info:income','5700';
+
+
+put 'mymoney','01','info:expense','5000';
+put 'mymoney','02','info:expense','5300';
+put 'mymoney','03','info:expense','5200';
+put 'mymoney','04','info:expense','5320';
+put 'mymoney','05','info:expense','4800';
+put 'mymoney','06','info:expense','4500';
+put 'mymoney','07','info:expense','5200';
+put 'mymoney','08','info:expense','5100';
+put 'mymoney','09','info:expense','5200';
+put 'mymoney','10','info:expense','5900';
+put 'mymoney','11','info:expense','6100';
+put 'mymoney','12','info:expense','6000';
+
+${HADOOP_HOME}/bin/hadoop jar mymr-0.0.1-SNAPSHOT.jar com.alex.mymr.SumMoneyJob
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,34 @@
+第四章 Hadoop的I/O操作
+序列化操作和在盘数据结构
+
+4.1 数据完整性
+datanode负责在收到数据后存储该数据及其验证校验和。
+客户端从datanode读取数据时，也会验证校验和，将它们与datanode中的存储的校验和进行比较。
+
+每个datanode也会在一个后台线程中运行一个DataBlockScanner，从而定期验证存储在这个datanode上的所有数据块。
+
+hdfs存储每个数据块的副本。可以复原。
+
+==================================================================
+4.1.2 LocalFileSystem
+是否可切分 列表示对应的压缩算法是否支持切分。是否可以搜索数据流的任意位置并
+进一步往下读取数据。可切分压缩格式尤其适合MapReduce.
+
+CompressionCodec
+	CompressionOutputStream  createOutputStream(OutputStream out)
+	CompressionInputStream  createInputStream(InputStream in)
+
+压缩算法没有特别看得懂
+
+序列化：将结构化对象转化为字节流以便在网络上传输或写到磁盘进行永久存储的过程。
+反序列化：将字节流转回结构化对象的逆过程。
+
+序列化在分布式数据处理的两大领域经常出现：进程间通信和永久存储。
+
+RPC 将消息序列化二进制流后发送到远程节点，远程节点接着讲二进制流反序列化为原始消息。
+
+==================================================================
+Hadoop使用自己的序列化格式Writable
+Writable 一个将其状态写到DataOutput二进制流，另一个从DataInput二进制流读取状态。
+
+P176

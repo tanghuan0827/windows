@@ -1,0 +1,105 @@
+探究shell的类型
+理解shell的父子关系
+别出心裁的子shell用法
+探究内建的shell命令
+
+cat /etc/passwd | grep root
+
+5.2 shell的父子关系
+ps -f
+
+生成子shell
+bash
+/bin/bash
+
+ps --forest
+
+可以通过pid和ppid来查看父进程和子进程的关系
+ps -f
+
+exit 退出父进程
+
+进程列表
+pwd ; ls ; cd /etc ; pwd ; cd ; pwd ; ls
+(pwd ; ls ; cd /etc ; pwd ; cd ; pwd ; ls)
+
+pwd ; ls ; cd /etc ; pwd ; cd ; pwd ; ls ; echo $BASH_SUBSHELL
+ (pwd ; ls ; cd /etc ; pwd ; cd ; pwd ; ls ; echo $BASH_SUBSHELL) 
+ 
+ sleep 10
+ sleep &
+
+查看进程 
+ ps -f
+
+ jobs可以显示当前运行在后台模式中所有的用户的进程
+ jobs
+ 
+ 显示更多的信息
+ jobs -l
+ 
+ 协程
+ coproc sleep 10
+ 
+ 查看外部命令
+ 文件系统命令，是存在于bash shell之外的程序。  位于 /bin  /sbin /usr/sbin中
+ 
+ which ps
+ 
+ 内部命令
+ type cd
+ type exit
+ 
+ 查看历史命令
+ !!
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

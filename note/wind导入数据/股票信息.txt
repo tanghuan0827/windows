@@ -1,0 +1,85 @@
+易方达  胜宏科技 显卡
+易方达  长信科技 汽车  股东增持教多
+
+
+上投摩根
+挪威自有资金
+
+select * from  (
+SELECT
+	stock_code, count(stock_code)
+FROM
+	(
+		SELECT
+			h.stock_code
+		FROM
+			shareholder h
+		LEFT JOIN stockinfo i ON h.stock_code = i.stock_code
+		WHERE
+			share_holder LIKE '%易方达%'
+		AND industry_wind = '信息技术'
+		AND profit_lastyear > 1
+		ORDER BY
+			pb DESC
+	) b
+GROUP BY stock_code
+having count(stock_code) >1 )  r1 left join  stockinfo i on r1.stock_code= i.stock_code; 
+
+============================================================
+select * from stockinfo where stock_code in 
+
+(
+
+SELECT
+	stock_code
+FROM
+	(
+		SELECT
+			h.stock_code
+		FROM
+			shareholder h
+		LEFT JOIN stockinfo i ON h.stock_code = i.stock_code
+		WHERE
+			share_holder LIKE '%中信%'
+		AND industry_wind = '信息技术'
+		AND profit_lastyear > 1
+		ORDER BY
+			pb DESC
+	) b
+
+)
+============================================================
+查看有哪些行业
+select DISTINCT(industry_wind) from stockinfo where industry_wind like '%信%' 
+
+select distinct(share_holder) from shareholder where  share_holder like '%中信%'
+
+SELECT
+	*
+FROM stockinfo where stock_code in 
+	(
+		SELECT
+			h.stock_code
+		FROM
+			shareholder h
+		LEFT JOIN stockinfo i ON h.stock_code = i.stock_code
+		WHERE
+			share_holder LIKE '%长信量化%'
+		AND industry_wind like '%信%'
+		ORDER BY
+			pb DESC
+	) 
+	order by industry_wind
+
+	
+选出某只股票的前十大股东
+select h.share_holder from shareholder h left join stockinfo i on  i.stock_code=h.stock_code where i.stock_name='美的集团'
+
+长信量化
+摩根
+瑞银
+高瓴
+UBS
+博时
+中信
+泽熙 不用看了

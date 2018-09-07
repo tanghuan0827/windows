@@ -1,0 +1,24 @@
+#!/bin/bash  
+#chkconfig: 2345 84 06
+#description: hadoop datanode service
+
+RETVAL=0
+# Source hadoop environment service
+. /home/hadoop/.bashrc
+start(){
+    su hadoop -c "$HADOOP_PREFIX/sbin/hadoop-daemon.sh start datanode"
+}
+stop(){
+    su hadoop -c "$HADOOP_PREFIX/sbin/hadoop-daemon.sh stop datanode"
+}
+
+case $1 in
+start)
+    start
+;;
+stop)
+    stop
+;;
+esac
+exit $RETVAL
+

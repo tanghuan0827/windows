@@ -1,0 +1,342 @@
+启动hbase shell命令
+./bin/hbase shell
+
+查看有多少表
+list
+
+创建表、和列簇
+create 'tb_1', 'mycf'
+
+扫描表结构
+scan "tb1"
+
+插入数据
+put 'tb_1','row1','mycf:name', 'billyWangpaul'
+put 'tb_1','row7','mycf:name','Wang'
+
+==================================================================
+过滤器
+
+ValueFilter   针对value 而不是列的过滤器就不奇怪了
+
+SingleColumnValueFilter name like '%Wang%'
+
+如何要安全的使用单列值过滤器，请务必保证你的每行记录都包含将要比较的列。
+
+两种方案 
+在遍历结果集的时候，再次判断结果是否包含我们要比较的列，如果没有就不使用这条记录。
+使用过滤器列表，将列族过滤器，列过滤器，值过滤器放入过滤器列表，同时进行过滤。FilterLister FamilyFilter, QualifierFilter
+
+不要使用hbase来保存数字型的记录，要使用 Java API来保存数字型记录
+
+添加文本型数据
+create 'myage','mycf'
+put 'myage','row1','mycf:age',20
+
+==================================================================
+添加字节型数组的数据
+		Configuration config = HBaseConfiguration.create();
+		
+		//添加必要的配置文件 hbase-site.xml   core-site.xml
+		config.addResource(new Path(ClassLoader.getSystemResource("hbase-site.xml").toURI()));
+		config.addResource(new Path(ClassLoader.getSystemResource("core-site.xml").toURI()));
+	
+		HTable table = new HTable(config, "myage");
+		
+		//rowid  mycf:age 
+		Put put = new Put(Bytes.toBytes("100001"));
+		put.add(Bytes.toBytes("mycf"), Bytes.toBytes("age"), Bytes.toBytes(9));
+		
+		table.put(put);
+		table.close();
+==================================================================
+
+删除数据
+delete 'myage','row1','mycf:age'
+
+单页过滤器
+PageFilter过滤器
+
+如果想做翻页，需要把上一次的翻页记录下来，作为下一次Scan的startRowkey
+
+添加一行
+Bytes.add(lastRowkey, new byte[1]);
+
+请务必把分页过滤器放到最后
+
+前缀过滤器 索引 提高性能
+
+==================================================================
+模糊行键过滤器
+create 'login_record','mycf'
+
+put 'login_record', '2016_06_22_4567','mycf:name','hello'
+put 'login_record', '2016_03_03_4567','mycf:name','hello'
+put 'login_record', '2017_05_31_4567','mycf:name','hello'
+put 'login_record', '2016_05_31_1234','mycf:name','hello'
+put 'login_record', '2016_05_31_qqqq','mycf:name','hello'
+
+中间或者结尾的关键词来过滤行键的时候，就可以使用模糊行键过滤器。
+
+随机行过滤器
+RandomRowFilter(float chance)
+
+
+==================================================================
+6.1.6 列过滤器
+列过滤器主要针对列名进行过滤的过滤器。
+列族过滤器
+列过滤器
+依赖列过滤器
+
+create 'testDepFilter', 'mycf'
+
+依赖列过滤器的用法
+	先指定一个列为依赖列
+	然后以该依赖列的时间戳去过滤其他的列，凡是时间戳比依赖列的时间戳大的列都过滤掉。
+	最后选出来的列就是所有时间戳小于等于依赖列的时间戳的字段。
+	
+	我们可以在每次更新数据的最后去更新依赖列，这样可以保证该行的所有数据的时间戳都
+		小于等于依赖列的时间戳。
+	避免读取还未更新完毕的数据。
+	
+	由于使用了依赖列过滤器后，扫描器一定会先获取依赖列的信息，并放到返回的结果集中，
+	就算这行的其他的列都被过滤掉了，至少这行记录还有一个单元格被返回，那就是依赖列
+	的单元格。
+	
+	不能同时使用依赖列和setBatch方法
+	
+	setBatch(int n)后scan每遍历n个单元格都会停下来把结果返回给客户端。
+	
+	DependentColumnFilter(byte[] family, byte[] qualifier, boolean dropDependentColumn)
+	DependentColumnFilter(byte[] family, byte[] qualifier, boolean dropDependentColumn
+					,CompareOp valueCompareOp, ByteArrayComparable valueComparator)
+	ValueFilter和一个时间戳过滤器组合
+	
+==================================================================
+6.1.6.4 列前缀过滤器
+	ColumnPrefixFilter  列前缀过滤器
+
+	MultipleColumnPrefixFilter  多列前缀过滤器  byte[][]  
+	列名本身就是一个byte[] 数组，所以多个列名就要用byte[][] 二维数组
+	
+	put 'city','row1','mycf:city','shanghai'
+	put 'city','row1','mycf:name','hello'
+	put 'city','row1','mycf:active',1
+	put 'city','row2','mycf:city','beijing'
+	put 'city','row2','mycf:name','tom'
+	put 'city','row2','mycf:active',0
+	
+	KeyOnlyFilter列键过滤器， 在遍历过程中不获取值，只获取列名
+	
+	cloneQualifier(cell)
+	
+	==================================================================
+	6.1.6.7 首次列键过滤器
+	FirstKeyOnlyFilter
+	使用在行数统计上，当扫描器扫描到某行的第一个列就会跳过该行余下的列
+	
+	==================================================================
+	6.1.6.8 列名范围过滤器  ColumnRangeFilter
+	满足一定范围列名的列，具体的说 需要给出最小列名 和 最大列名
+	该过滤器 会选择根据ASCII码列名在你锁指定的列名范围内的列。
+	
+	ColumnRangeFilter(byte[] minColumn, boolean minColumnInclusive, byte[] maxColumn, boolean maxColumnInclusive)
+	
+	列数量过滤器 ColumnCountGetFilter
+	如果超出数量，接下来的列就不打印了，没有超出数量，还是打印行
+	
+	单元格过滤器就是针对单元格进行过滤的过滤器。
+	
+	==================================================================
+	时间戳过滤器TimestampsFilter
+	使用时间戳过滤器来存储自定义的版本号。
+	
+	装饰过滤器
+	装饰过滤器来包装其他过滤器，实现了对过滤器结果的扩展和修改。
+	
+	当被包装的过滤器判断当前的KeyValue需要被跳过的时候，整行都会被跳过。
+	filterKeyValue
+	
+	只要行中有一个列的值等于north,就把整行的数据都跳过。
+	
+	create 'schools','info'
+	
+	put 'schools','row1','info:geo','north'
+	put 'schools','row2','info:geo','north'
+	put 'schools','row3','info:geo','north'
+	put 'schools','row4','info:geo','south'
+	put 'schools','row5','info:geo','south'
+	
+	put 'schools','row1','info:name','qinghua university'
+	put 'schools','row2','info:name','beijing university'
+	put 'schools','row3','info:name','xiamen university'
+	put 'schools','row4','info:name','shenzhen university'
+	put 'schools','row5','info:name','zhejiang university'
+	
+	==================================================================
+	全匹配过滤器
+	如果有一个过滤器的filterKeyValue()方法返回false,整体的Scan都会终止
+	WhileMatchFilter
+	
+	==================================================================
+	自定义过滤器
+	当前遍历的KeyValue是否应该被放入结果集中
+	如何获取Cell的列族和列名
+	
+	判断某个Cell的列族和列是否跟我们指定的列族和列是否相同
+	boolean matchingColumn(final Cell left, final byte[] fam, final byte[] qual)
+	
+	String[] columnInfo = StringUtils.split(columnAName, ":");
+	if(CellUtil.matchingColumn(cell, Bytes.toBytes(columnInfo[0]), Bytes.toBytes(columnInfo[1])){
+		columnAValue = CellUtil.cloneValue(cell);
+	}
+	
+	返回码的可选值
+	filterKeyValue 是一个返回码枚举类的值
+	INCLUDE 结果要包含这个KeyValue
+	INCLUDE_AND_NEXT_COL  结果包含这个KeyValue，但是跳过余下的版本
+	SKIP 跳过这个Key Value 
+	NEXT_COL 跳过当前列，并继续处理后面的列
+	NEXT_ROW 跳过当前行，并继续处理后面的行
+	SEEK_NEXT_USING_HINT  getNextCellHint方法来获取下一个要过滤的单元格
+	这样的过滤器就可以跳过多个不需要处理的单元格
+	
+	hbase会先序列化 然后反序列化并构建实例
+	toByteArray 序列化过滤器构建函数的传参
+	parseFrom 反序列化构建函数的传参，然后实例化过滤器。
+	
+	scan 'city',{FILTER=>"(PrefixFilter ('row1'))"}
+
+==================================================================
+6.2 协处理器
+	存储过程和触发器
+	不要同时添加hbase-server和hbase-client的依赖
+	
+	 alter 'mytable', METHOD => 'table_att','coprocessor' => '/usr/alex/hbaseexample-0.0.1-SNAPSHOT.jar|com.alex.hbaseexample.HelloWorldObserver||'
+
+	 alter 'mytable', METHOD => 'table_att_unset', NAME=>'coprocessor$1'
+	 
+	 测试协处理器
+	 一种是观察者类型触发器
+	 另一种终端程序类型存储过程
+	 
+	 通过hbase shell来动态定义协处理器的方式来加载
+	 还可以通过配置文件加载
+	 通过API加载协处理器
+	 
+	 ==================================================================
+	 可以在hbase-site.xml
+	 
+	 需要将 jar分发到 $HBASE_HOME/lib目录下
+	 
+	 hbase.coprocessor.region.classes
+	 hbase.coprocessor.master.classes
+	 
+	 <property>
+		<name>hbase.coprocessor.region.classes</name>
+		<value>com.alex.hbaseexample.HelloWorldObserver</value>
+	</property>
+	
+	 describe 'mytable'
+	==================================================================
+	6.2.4 协处理器核心类
+	协处理器接口Coprocessor接口
+	void start(CoprocessorEnvironment env)
+	void stop(CoprocessorEnvironment env)
+	
+	PRIORITY_HIGHEST  最高优先级
+	PRIORITY_SYSTEM	系统级别的协处理器
+	PRIORITY_USER	用户级别的协处理器
+	PRIORITY_LOWEST 最低优先级
+	
+	生存周期
+	UNINSTALLED  INSTALLED  STARTING  ACTIVE STOPPING STOPPED
+	
+	version协处理器的版本
+	HBaseVersion:HBase的版本
+	Instance 当前加载的协处理器的实例
+	priority 优先级
+	loadSequence加载顺序
+	configuration协处理器的配置
+	
+	CoprocessorHost类
+	是一个抽象类，该类负责加载各种协处理器
+	
+	MasterCoprocessorHost
+	RegionCoprocessorHost
+	RegionServerCoprocessorHost
+	WALCoprocessorHost
+	
+	Coprocessor   CoprocessorEnvironment
+	
+	协处理器实例 是 CoprocessorEnvironment中的一个属性
+	
+	==================================================================
+	观察者 Observers
+	RegionObserver  RegionServerObserver  MasterObserver WALObserver  BulkLoadObserver EndpointObserver
+	
+	Master观察者可以监听Master的所有操作，比如创建表 启用表 删除表等
+	
+	外部资源可以供Observer访问
+	zookeeper hbase所在的filesystem  LogFactory
+	
+	读写某个文件
+	使用Mysql等关系型数据库
+	ConnectionUtils.createShortCircuitConnection获取连接
+	
+	ObserverContext方法   bypass  complete  getEnvironment(MasterCoprocessorEnvironment)
+	
+	getMasterFileSystem获取Master所在的FileSystem
+	getZookeeper 获取ZookeeperWatcher 即可访问集群使用zookeeper集群
+	
+	打jar包   创建列簇newcf  执行changeTableTest:HTableDesciptor  hadoop来查看创建的日志
+	
+	hdfs dfs -ls /usr/alex/ddlLogs
+	hdfs dfs -cat /usr/alex/ddlLogs/mytable.2018-07-14_11_25_33
+	
+	RegionServer观察者  
+	RegionServer发出的操作大多针对Region或者WAL(一个RegionServer只有一个WAL实例)
+	
+	WAL观察者
+	
+	BulkLoad观察者  BulkLoadObserver 批量导入数据，MapReduce来读取和插入数据
+	
+	BulkLoaderObserver接口的所有方法
+	
+	prePrepareBulkLoad 准备批量导入之前
+	preCleanupBulkLoad 批量导入结束之后
+	
+	==================================================================
+	6.2.5.6 终端程序观察者
+	EndpointObserver 负责监控终端程序的执行过程
+	preEndpointInvocation
+	postEndpointInvocation 终端程序执行之后
+	
+	protoc -Isrc/main/resources --java_out=src/main/java src/main/resources/CountRowService.proto
+	
+	查看hbase的状态  http://nn01:16010/master-status
+	
+	布隆过滤器
+	ROW 针对行进行过滤
+	ROWCOL 针对列进行过滤
+	
+	大字段
+	MOB  HBase存储MOB字段的时候其实也是把该文件直接存储到HDFS上，而在表中只存储了该文件的链接
+	
+	查看服务器在哪台的状态
+	 scan 'hbase:meta', {FILTER => "(PrefixFilter ('mytable'))"}
+
+	 1450
+	
+	
+	
+	
+	 
+	
+	
+	
+	
+	
+	
+

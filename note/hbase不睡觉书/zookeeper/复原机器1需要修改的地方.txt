@@ -1,0 +1,15 @@
+vim /etc/sysconfig/network-scripts/ifcfg-ens33
+vim /etc/sysconfig/network 
+
+cd /data/logs/zookeeper
+echo "1">myid
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lvoyee.crud.dao.Pap805Mapper">
+
+    <resultMap type="pap805" id="pap805Map">
+        <id column="date_p" property="dateP"/>
+        <result column="open_p" property="openP"/>
+        <result column="high_p" property="highP"/>
+        <result column="low_p" property="lowP"/>
+        <result column="close_p" property="closeP"/>
+        <result column="hold_number_p" property="holdNumberP"/>
+    </resultMap>
+
+
+    <select id="getClose" resultMap="pap805Map">
+        SELECT
+                    p.date_p,
+                    p.open_p,
+                    p.high_p,
+                    p.low_p,
+                    p.close_p,
+                    p.hold_number_p
+                    FROM
+                    pap805 p
+    </select>
+
+
+
+</mapper>

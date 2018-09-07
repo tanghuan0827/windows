@@ -1,0 +1,4 @@
+#!/bin/bash
+
+shtool platform
+

@@ -1,0 +1,32 @@
+nn01
+bin/hbase-daemon.sh start rest
+
+
+curl http://nn01:8080/
+
+curl http://nn01:8080/version
+
+bin/hbase-daemon.sh stop rest
+
+curl -H "Accept: text/plain" http://nn01:8080/version
+
+curl http://nn01:8080/testtable/%01%02%03/colfam1:col1
+
+64编码
+   echo AQID | base64 -d |hexdump
+
+   curl -H "Accept: application/json" \http://nn01:8080/testtable/%01%02%03/colfam1:col1
+
+   echo Y29sZmFtMTpjb2wx | base64 -d
+
+	echo dmFsdWUx | base64 -d
+	
+Protocol Buffer编码 Rest服务切换编码	
+	curl -H "Accept: application/x-protobuf" http://nn01:8080/testtable/%01%02%03/colfam1:col1 |hexdump -C
+	curl -H "Accept: application/octet-stream" http://nn01:8080/testtable/%01%02%03/colfam1:col1 |hexdump -C
+
+============================================================
+RemoteHTable RemoteAdmin
+
+
+P265

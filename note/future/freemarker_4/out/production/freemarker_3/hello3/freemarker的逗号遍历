@@ -1,0 +1,225 @@
+    Integer empId,
+    String empName,
+    String gender,
+    String email,
+    Integer dId
+
+<#list model_column as model>
+<#if (model.columnType = 'varchar' || model.columnType = 'text'|| model.columnType='char')>
+    String ${model.changeColumnName?uncap_first}<#if model_has_next>,</#if>
+</#if>
+<#if (model.columnType = 'timestamp' || model.columnType='datetime')>
+   Date ${model.changeColumnName?uncap_first}<#if model_has_next>,</#if>
+</#if>
+<#if (model.columnType='int'|| model.columnType='tinyint')>
+    Integer ${model.changeColumnName?uncap_first}<#if model_has_next>,</#if>
+</#if>
+<#if model.columnType='decimal'>
+    Double ${model.changeColumnName?uncap_first}<#if model_has_next>,</#if>
+</#if>
+</#list>
+
+Integer empId,
+String empName,
+String gender,
+String email,
+Integer dId
+
+<#list model_column as model>
+<#if (model.columnType = 'varchar' || model.columnType = 'text'|| model.columnType='char')>String ${model.changeColumnName?uncap_first}<#if model_has_next>,</#if></#if>
+<#if (model.columnType = 'timestamp' || model.columnType='datetime')>Date ${model.changeColumnName?uncap_first}<#if model_has_next>,</#if></#if>
+<#if (model.columnType='int'|| model.columnType='tinyint')>Integer ${model.changeColumnName?uncap_first}<#if model_has_next>,</#if></#if>
+<#if model.columnType='decimal'>Double ${model.changeColumnName?uncap_first}<#if model_has_next>,</#if></#if>
+</#list>
+
+================================================
+Integer empId, String empName, String gender, String email, Integer dId
+
+<#list model_column as model>
+<#if (model.columnType = 'varchar' || model.columnType = 'text'|| model.columnType='char')>String ${model.changeColumnName?uncap_first}<#if model_has_next>,</#if></#if><#if (model.columnType = 'timestamp' || model.columnType='datetime')>Date ${model.changeColumnName?uncap_first}<#if model_has_next>,</#if></#if><#if (model.columnType='int'|| model.columnType='tinyint')>Integer ${model.changeColumnName?uncap_first}<#if model_has_next>,</#if></#if><#if model.columnType='decimal'>Double ${model.changeColumnName?uncap_first}<#if model_has_next>,</#if></#if>
+</#list>
+
+================================================
+    "empId=" + empId +
+    ", empName='" + empName + '\'' +
+    ", gender='" + gender + '\'' +
+    ", email='" + email + '\'' +
+    ",dId=" + dId +
+
+<#list model_column as model>
+    <#if (model_index =0)>
+    "${model.changeColumnName?uncap_first}=" + ${model.changeColumnName?uncap_first} +
+    </#if>
+    <#if (model_index >0&&model_has_next)>
+        <#if (model.columnType = 'varchar' || model.columnType = 'text'|| model.columnType='char')>
+    ", ${model.changeColumnName?uncap_first}='" + ${model.changeColumnName?uncap_first} + '\'' +
+        <#else>
+    ", ${model.changeColumnName?uncap_first}=" + ${model.changeColumnName?uncap_first} +
+        </#if>
+    </#if>
+    <#if !model_has_next>
+    ",${model.changeColumnName?uncap_first}=" + ${model.changeColumnName?uncap_first} +
+    </#if>
+</#list>
+
+
+================================================
+#{empName}, #{gender}, #{email}, #{dId}
+
+        <#list model_column as model>
+        <#if !(model_index =0)>
+            <#noparse>#</#noparse>{${model.changeColumnName?uncap_first}}<#if model_has_next>,</#if>
+        </#if>
+        </#list>
+
+<#list model_column as model><#noparse>#</#noparse>{${model.changeColumnName?uncap_first}}<#if model_has_next>, </#if></#list>
+
+不需要第一个主键
+<#list model_column as model><#if !(model_index=0)><#noparse>#</#noparse>{${model.changeColumnName?uncap_first}}<#if model_has_next>, </#if></#if></#list>
+
+================================================
+empId, empName, gender, email, dId
+
+        <#list model_column as model>
+            ${model.changeColumnName?uncap_first}<#if model_has_next>,</#if>
+        </#list>
+
+<#list model_column as model>${model.changeColumnName?uncap_first}<#if model_has_next>, </#if></#list>
+
+================================================
+empName, gender, email, dId
+
+        <#list model_column as model>
+        <#if !(model_index =0)>
+            ${model.changeColumnName?uncap_first}<#if model_has_next>,</#if>
+        </#if>
+        </#list>
+
+<#list model_column as model><#if !(model_index =0)>${model.changeColumnName?uncap_first}<#if model_has_next>, </#if></#if></#list>
+================================================
+"学号", "姓名", "性别", "邮箱", "部门编号"
+
+        <#list model_column as model>
+        <#if !(model_index =0)>
+            "${model.columnComment}"<#if model_has_next>, </#if>
+        </#if>
+        </#list>
+
+<#list model_column as model>"${model.columnComment}"<#if model_has_next>, </#if></#list>
+================================================
+"姓名", "性别", "邮箱", "部门编号"
+
+        <#list model_column as model>
+        <#if !(model_index =0)>
+            "${model.columnComment}"<#if model_has_next>, </#if>
+        </#if>
+        </#list>
+
+<#list model_column as model><#if !(model_index =0)>"${model.columnComment}"<#if model_has_next>, </#if></#if></#list>
+
+================================================
+        this.empId=empId;
+        this.empName=empName;
+        this.gender=gender;
+        this.email=email;
+        this.dId=dId;
+
+        <#list model_column as model>
+        <#if !(model_index =0)>
+            this.${model.changeColumnName?uncap_first}=${model.changeColumnName?uncap_first}<#if model_has_next>;</#if>
+        </#if>
+        </#list>
+
+
+================================================
+emp_name,gender,email,d_id
+
+        <#list model_column as model>
+        <#if !(model_index =0)>
+            ${model.columnName}<#if model_has_next>, </#if>
+        </#if>
+        </#list>
+
+<#list model_column as model><#if !(model_index =0)>${model.columnName}<#if model_has_next>, </#if></#if></#list>
+
+
+
+
+
+================================================
+emp_id
+
+<#list model_column as model><#if (model_index =0)>${model.columnName}</#if></#list>
+
+================================================
+EmpId
+<#list model_column as model><#if (model_index =0)>${model.changeColumnName}</#if></#list>
+
+================================================
+empId
+<#list model_column as model><#if (model_index =0)>${model.changeColumnName?uncap_first}</#if></#list>
+
+
+
+================================================
+e.emp_name = #{item.empName},
+e.gender=#{item.gender},
+e.email=#{item.email},
+e.d_id=#{item.dId}
+
+<#list model_column as model>
+<#if !(model_index =0)>
+	${tb_simple_name}.${model.columnName} = <#noparse>#</#noparse>{item.${model.changeColumnName}}<#if model_has_next>,<#else></#if>
+</#if>
+</#list>
+
+
+
+================================================
+        emp_id, emp_name, gender, email, d_id
+
+        e.emp_id, e.emp_name, e.gender, e.email, e.d_id
+
+            emp_id,
+            emp_name,
+            gender,
+            email,
+            d_id
+
+            e.emp_id,
+            e.emp_name,
+            e.gender,
+            e.email,
+            e.d_id
+
+        <#list model_column as model>${model.columnName}<#if model_has_next>, </#if></#list>
+
+        <#list model_column as model>${tb_simple_name}.${model.columnName}<#if model_has_next>, </#if></#list>
+
+        <#list model_column as model>
+            ${model.columnName}<#if model_has_next>,</#if>
+        </#list>
+
+        <#list model_column as model>
+            ${tb_simple_name}.${model.columnName}<#if model_has_next>,</#if>
+        </#list>
+
+================================================
+#
+
+<#noparse>#</#noparse>
+
+================================================
+$
+
+<#noparse>$</#noparse>
+
+================================================
+Employee
+
+${table_name}
+
+================================================
+employee
+
+${table_name?uncap_first}

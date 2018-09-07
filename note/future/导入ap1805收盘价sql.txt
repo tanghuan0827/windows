@@ -1,0 +1,30 @@
+执行脚本
+use future_price;
+--drop table ap805_price;
+	
+CREATE TABLE `ap805_price` (
+  `date_p` date DEFAULT NULL,
+  `open_p` decimal(20,3) DEFAULT NULL,
+  `high_f` decimal(20,3) DEFAULT NULL,
+  `low_f` decimal(20,3) DEFAULT NULL,
+  `close_f` decimal(20,3) DEFAULT NULL,
+  `hold_number_f` int default null
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+	
+load data infile 'E:/note/future/AP1805_price.csv' into table ap805_price fields terminated by ',' optionally enclosed by '"' escaped by '"' lines terminated by '\n';
+
+============================================================
+C:\Program Files\MySQL\MySQL Server 5.7\bin
+mysql -uroot -p123456
+show variables like '%secure%'
+
+secure_file_priv 由null修改""
+my.ini里面修改 secure_file_priv=''
+
+就可以导入数据了
+
+============================================================
+C:\Program Files\MySQL\MySQL Server 5.7\bin
+mysql -uroot -p123456 -Dfuture<E:\note\future\importap1805.sql

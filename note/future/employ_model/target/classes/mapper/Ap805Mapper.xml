@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lvoyee.crud.dao.Ap805Mapper">
+
+    <resultMap type="ap805" id="ap805Map">
+        <id column="date_f" property="dateF"/>
+        <result column="rank_f" property="rankF"/>
+        <result column="name_f" property="nameF"/>
+        <result column="long_f" property="longF"/>
+        <result column="long_change_f" property="longChangeF"/>
+        <result column="long_percent_f" property="longPercentF"/>
+        <result column="shoft_f" property="shoftF"/>
+        <result column="short_change_f" property="shortChangeF"/>
+        <result column="short_percent_f" property="shortPercentF"/>
+        <result column="net_long_f" property="netLongF"/>
+        <result column="net_long_change_f" property="netLongChangeF"/>
+        <result column="net_short_f" property="netShortF"/>
+        <result column="net_short_change_f" property="netShortChangeF"/>
+        <result column="net_short_change_percent_f" property="netShortChangePercentF"/>
+        <result column="volumne_f" property="volumneF"/>
+        <result column="volumne_change_f" property="volumneChangeF"/>
+        <result column="volume_percent_f" property="volumePercentF"/>
+        <result column="clear_price_f" property="clearPriceF"/>
+    </resultMap>
+
+    <select id="getAll" parameterType="com.lvoyee.crud.bean.Ap805" resultMap="ap805Map">
+        SELECT
+            date_f,
+            rank_f,
+            name_f,
+            long_f,
+            long_change_f,
+            long_percent_f,
+            shoft_f,
+            short_change_f,
+            short_percent_f,
+            net_long_f,
+            net_long_change_f,
+            net_short_f,
+            net_short_change_f,
+            net_short_change_percent_f,
+            volumne_f,
+            volumne_change_f,
+            volume_percent_f,
+            clear_price_f
+        FROM
+        ap805
+        <where>
+                    <if test="dateF != null and dateF !='' ">
+                        And date_f like #{dateF}
+                    </if>
+                    <if test="rankF != null and rankF !='' ">
+                        And rank_f like #{rankF}
+                    </if>
+                    <if test="nameF != null and nameF !='' ">
+                        And name_f like #{nameF}
+                    </if>
+                    <if test="longF != null and longF !='' ">
+                        And long_f like #{longF}
+                    </if>
+                    <if test="longChangeF != null and longChangeF !='' ">
+                        And long_change_f like #{longChangeF}
+                    </if>
+                    <if test="longPercentF != null and longPercentF !='' ">
+                        And long_percent_f like #{longPercentF}
+                    </if>
+                    <if test="shoftF != null and shoftF !='' ">
+                        And shoft_f like #{shoftF}
+                    </if>
+                    <if test="shortChangeF != null and shortChangeF !='' ">
+                        And short_change_f like #{shortChangeF}
+                    </if>
+                    <if test="shortPercentF != null and shortPercentF !='' ">
+                        And short_percent_f like #{shortPercentF}
+                    </if>
+                    <if test="netLongF != null and netLongF !='' ">
+                        And net_long_f like #{netLongF}
+                    </if>
+                    <if test="netLongChangeF != null and netLongChangeF !='' ">
+                        And net_long_change_f like #{netLongChangeF}
+                    </if>
+                    <if test="netShortF != null and netShortF !='' ">
+                        And net_short_f like #{netShortF}
+                    </if>
+                    <if test="netShortChangeF != null and netShortChangeF !='' ">
+                        And net_short_change_f like #{netShortChangeF}
+                    </if>
+                    <if test="netShortChangePercentF != null and netShortChangePercentF !='' ">
+                        And net_short_change_percent_f like #{netShortChangePercentF}
+                    </if>
+                    <if test="volumneF != null and volumneF !='' ">
+                        And volumne_f like #{volumneF}
+                    </if>
+                    <if test="volumneChangeF != null and volumneChangeF !='' ">
+                        And volumne_change_f like #{volumneChangeF}
+                    </if>
+                    <if test="volumePercentF != null and volumePercentF !='' ">
+                        And volume_percent_f like #{volumePercentF}
+                    </if>
+                    <if test="clearPriceF != null and clearPriceF !='' ">
+                        And clear_price_f like #{clearPriceF}
+                    </if>
+        </where>
+  </select>
+
+
+    <select id="getOne" parameterType="string" resultMap="ap805Map">
+         SELECT
+            a.date_f,
+            a.rank_f,
+            a.name_f,
+            a.long_f,
+            a.long_change_f,
+            a.long_percent_f,
+            a.shoft_f,
+            a.short_change_f,
+            a.short_percent_f,
+            a.net_long_f,
+            a.net_long_change_f,
+            a.net_short_f,
+            a.net_short_change_f,
+            a.net_short_change_percent_f,
+            a.volumne_f,
+            a.volumne_change_f,
+            a.volume_percent_f,
+            a.clear_price_f
+            FROM
+            ap805 a
+            where a.name_f=#{str}
+            order by date_f
+    </select>
+
+
+</mapper>

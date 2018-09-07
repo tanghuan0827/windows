@@ -1,0 +1,58 @@
+安装软件程序
+列出安装的软件包
+yum list installed
+
+yum install package_name
+
+yum remove package_name
+
+yum erase package_name
+
+yum clean all
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

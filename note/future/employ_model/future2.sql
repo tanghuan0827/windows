@@ -1,0 +1,20 @@
+CREATE TABLE `ap805` (
+  `date_f` int DEFAULT NULL,
+  `rank_f` varchar(255) DEFAULT NULL,
+  `name_f` varchar(255) DEFAULT NULL,
+  `long_f` decimal(20,4) DEFAULT NULL,
+  `long_change_f` decimal(20,4) DEFAULT NULL,
+  `long_percent_f` varchar(255) DEFAULT NULL,
+  `shoft_f` decimal(20,4) DEFAULT NULL,
+  `short_change_f` decimal(20,4) DEFAULT NULL,
+  `short_percent_f` varchar(255) DEFAULT NULL,
+  `net_long_f` decimal(20,4) DEFAULT NULL,
+  `net_long_change_f` decimal(20,4) DEFAULT NULL,
+  `net_short_f` decimal(20,4) DEFAULT NULL,
+  `net_short_change_f` decimal(20,4) DEFAULT NULL,
+  `net_short_change_percent_f` varchar(255) DEFAULT NULL,
+  `volumne_f` decimal(20,4) DEFAULT NULL,
+  `volumne_change_f` decimal(20,4) DEFAULT NULL,
+  `volume_percent_f` varchar(255) DEFAULT NULL,
+  `clear_price_f` decimal(20,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

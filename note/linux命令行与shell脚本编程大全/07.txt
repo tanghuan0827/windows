@@ -1,0 +1,109 @@
+理解Linux文件权限
+
+理解linux安全性
+解读文件权限
+使用linux组
+
+useradd -D
+
+useradd -m test
+ls -al /home/test
+
+
+userdel -r test
+
+修改用户名
+passwd loginname
+
+============================================================
+7.2 使用linux组
+查看用户组
+vim /etc/group
+
+创建新组
+groupadd shared
+
+添加用户
+useradd test
+
+将test用户添加到shared组里面
+usermod -G shared test
+
+将rich用户添加到shared组里面
+usermod -G shared rich
+
+tail  /etc/group
+
+修改组的GID(-g) 修改组名(-n)
+
+将shared的组名修改为sharing
+groupmod -n sharing shared
+
+查看用户组
+tail /etc/group
+
+ls -l
+d代表目录 -代表文件  l代表链接
+
+登录名  组名 系统上其他人
+
+r可读  w可写  x可执行
+
+chmod 760 newfile
+
+改变用户
+chown test newfile
+
+改变用户和组
+chown test.sharing newfile
+
+改变用户的组
+chown .rich newfile
+chgrp sharing newfile
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
