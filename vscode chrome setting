@@ -1,3 +1,10 @@
+  {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}"
+        }
  ,
         {
         "name": "使用本机 Chrome 调试",
