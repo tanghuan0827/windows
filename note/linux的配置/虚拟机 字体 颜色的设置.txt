@@ -39,7 +39,7 @@ dircolors -p > ~/.dircolors
 
 !!!!!
 vim  ~/.dircolors
-DIR 47   
+DIR 45  
 
 vim ~/.bashrc
 if [ -x /usr/bin/dircolors ]; then
