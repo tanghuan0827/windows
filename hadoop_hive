@@ -1,0 +1,95 @@
+https://bigdata.163yun.com/product/article/31
+
+手把手教你搭建hadoop+hive测试环境(新手向) - 网易大数据
+
+
+
+wget http://mirror.bit.edu.cn/apache/hadoop/common/hadoop-2.7.6/hadoop-2.7.6.tar.gz
+ wget http://mirror.bit.edu.cn/apache/hive/hive-2.3.4/apache-hive-2.3.4-bin.tar.gz
+
+ <configuration>
+	<property>
+		<name>mapreduce.framework.name</name>
+		<value>yarn</value>
+	</property>
+ </configuration>
+ 
+  <configuration>
+	<property>
+		<name>yarn.nodemanager.aux-services</name>
+		<value>mapreduce_shuffle</value>
+	</property>
+ </configuration>
+ 
+启动命令
+hadoop/bin/hdfs namenode -format
+
+hadoop/sbin/start-dfs.sh &
+hadoop/sbin/start-yarn.sh &
+hadoop/sbin/mr-jobhistory-daemon.sh start historyserver &
+
+hadoop/sbin/stop-dfs.sh
+hadoop/sbin/stop-yarn.sh
+hadoop/sbin/mr-jobhistory-daemon.sh stop historyserver
+
+export JAVA_HOME=/opt/modules/jdk1.8
+export HADOOP_HOME=~/hadoop 
+export HIVE_HOME=~/hive
+export HIVE_CONF_DIR=~/hive/conf
+
+./hdfs dfs -mkdir -p ~/hive/warehouse 
+./hdfs dfs -mkdir -p ~/hive/tmp
+./hdfs dfs -mkdir -p ~/hive/log
+./hdfs dfs -mkdir -p ~/hive/warehouse
+./hdfs dfs -chmod g+w ~/hive/warehouse
+./hdfs dfs -chmod g+w ~/hive/tmp
+./hdfs dfs -chmod g+w ~/hive/log
+
+修改hive-site.xml
+  <configuration>
+	<property>
+		<name>hive.exec.scratchdir</name>
+		<value>/user/hive/tmp</value>
+	</property>
+	<property>
+		<name>hive.metastore.warehouse.dir</name>
+		<value>/user/hive/warehouse</value>
+	</property>
+	<property>
+		<name>hive.querylog.location</name>
+		<value>/user/hive/log</value>
+	</property>
+
+	
+<configuration>
+	
+	<property>
+		<name>javax.jdo.option.ConnectionURL</name>
+		<value>jdbc:mysql://localhost:3306/hive?createDatabaseIfNotExist=true&characterEncoding=UTF-8&useSSL=false</value>
+	</property>
+	<property>
+		<name>javax.jdo.option.ConnectionDriverName</name>
+		<value>com.mysql.jdbc.Driver</value>
+	</property>
+	<property>
+		<name>javax.jdo.option.ConnectionUserName</name>
+		<value>hive</value>
+	</property>
+	<property>
+		<name>javax.jdo.option.ConnectionPassword</name>
+		<value>hive</value>
+	</property>
+
+ </configuration>
+ 
+ 
+  ./bin/schematool -dbType mysql -initSchema
+  
+  docker pull mysql:5.7
+
+  
+  bin/hive
+  bin/hive --service hiveserver2 
+  bin/beeline 
+netstat -apn|grep 10000
+
