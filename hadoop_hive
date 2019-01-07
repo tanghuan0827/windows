@@ -2,6 +2,7 @@ https://bigdata.163yun.com/product/article/31
 
 手把手教你搭建hadoop+hive测试环境(新手向) - 网易大数据
 
+ docker inspect --format '{{ .Netwos.IPAddress }}' some-mysql
 
 
 wget http://mirror.bit.edu.cn/apache/hadoop/common/hadoop-2.7.6/hadoop-2.7.6.tar.gz
