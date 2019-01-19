@@ -6,6 +6,14 @@ hi Comment ctermfg =red
 hi String ctermfg =yellow
 hi Normal ctermfg =black
 
+
+colorscheme delek
+hi Statement ctermfg =black
+hi Comment ctermfg =lightgreen
+hi String ctermfg =yellow
+hi Normal ctermfg =red
+
+
 newwhite
 将xshell的颜色
 浅黄色变为淡紫色
@@ -64,10 +72,15 @@ shell 里面调整字体 consolas  字号10 行距5
 
 
 
+xshell也是可以同时更改的
 
+vim /etc/sysconfig/network-scripts/ifcfg-ens33
+:%s/43/0/g
+:wq
 
-
-
+vim /etc/hosts
+:%s/43/0/g
+:wq
 
 
 
