@@ -1,0 +1,40 @@
+eclipse maven 打成可运行的jar包 找不到主类
+
+pom.xml 中添加
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>Master</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+           
+      
+           
+           run application中
+           java application 
+           类  
+           在 Programm Arguments 中以空格添加 各个参数 运行
+           添加参数
+           
+           运行 main方法，在打包成可执行jar的时候就可以 看到有这个类
+           
+           打成可执行jar包
+           export 
+           Runnable Executable jar
+           将maven依赖的jar包也添加进行
+           
+           运行
+           java -jar tt.jar 127.0.0.1:2181
+           
+           可以在jar中查看是否有 这个主类  MENIFEST.MF
+           是否有这个
+            Manifest-Version: 1.0
+            Class-Path: .
+            Main-Class: Master
+           
