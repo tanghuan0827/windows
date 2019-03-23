@@ -1,0 +1,47 @@
+CREATE TABLE `shareholder` (
+  `rank_name` varchar(255) DEFAULT NULL,
+  `stock_code` varchar(255) DEFAULT NULL,
+  `stock_name` varchar(255) DEFAULT NULL,
+  `share_holder` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+
+
+CREATE TABLE `stockinfo` (
+  `stock_code` varchar(255) DEFAULT NULL,
+  `stock_name` varchar(255) DEFAULT NULL,
+  `concept` varchar(255) DEFAULT NULL,
+  `industry_sw` varchar(255) DEFAULT NULL,
+  `ev` decimal(10,4) DEFAULT NULL,
+  `net_profit_is_2018M3` decimal(10,4) DEFAULT NULL,
+  `net_profit_is_2017` decimal(10,4) DEFAULT NULL,
+  `net_profit_is_2016` decimal(10,4) DEFAULT NULL,
+  `dym_pe` decimal(10,4) DEFAULT NULL,
+  `pe` decimal(10,4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+
+
+CREATE TABLE `revenu` (
+  `stock_code` varchar(255) DEFAULT NULL,
+  `stock_name` varchar(255) DEFAULT NULL,
+  `r_18` decimal(20,2) DEFAULT NULL,
+  `r_17` decimal(20,2) DEFAULT NULL,
+  `r_16` decimal(20,2) DEFAULT NULL,
+  `r_15` decimal(20,2) DEFAULT NULL,
+  `r_14` decimal(20,2) DEFAULT NULL,
+  `r_13` decimal(20,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+
+CREATE TABLE `profit` (
+  `stock_code` varchar(255) DEFAULT NULL,
+  `stock_name` varchar(255) DEFAULT NULL,
+  `p_18` decimal(20,2) DEFAULT NULL,
+  `p_17` decimal(20,2) DEFAULT NULL,
+  `p_16` decimal(20,2) DEFAULT NULL,
+  `p_15` decimal(20,2) DEFAULT NULL,
+  `p_14` decimal(20,2) DEFAULT NULL,
+  `p_13` decimal(20,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+

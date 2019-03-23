@@ -1,0 +1,27 @@
+CREATE TABLE `revenu` (
+  `stock_code` varchar(255) DEFAULT NULL,
+  `stock_name` varchar(255) DEFAULT NULL,
+  `r_18` decimal(20,2) DEFAULT NULL,
+  `r_17` decimal(20,2) DEFAULT NULL,
+  `r_16` decimal(20,2) DEFAULT NULL,
+  `r_15` decimal(20,2) DEFAULT NULL,
+  `r_14` decimal(20,2) DEFAULT NULL,
+  `r_13` decimal(20,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+
+CREATE FUNCTION Foo(arg1 decimal(20,2), arg2 decimal(20,2)) 
+RETURNS decimal(20,2)     
+BEGIN 
+    DECLARE n decimal(20,2) DEFAULT 0;
+    set n = if(arg1 is null or arg2 is null, null,(arg1-arg2)/arg1);
+    return n;
+END
+
+select Foo(r.r_18,r.r_17),Foo(r.r_17,r.r_16),Foo(r.r_16,r.r_15),Foo(r.r_15,r.r_14),Foo(r.r_14,r.r_13  ) from revenu r;
+
+
+select stock_name, stock_code ,Foo(r.r_17,r.r_16) as p1,Foo(r.r_16,r.r_15) as p2,Foo(r.r_15,r.r_14) as p3,Foo(r.r_14,r.r_13  ) as p4 from revenu r 
+
+select * from 
+(select stock_name, stock_code ,Foo(r.r_17,r.r_16) as p1,Foo(r.r_16,r.r_15) as p2,Foo(r.r_15,r.r_14) as p3,Foo(r.r_14,r.r_13  ) as p4 from revenu r) t where t.p1>0.3 and t.p2>0.3 and t.p3>0.3;

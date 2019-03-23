@@ -1,0 +1,131 @@
+CREATE TABLE `profit` (
+  `stock_code` varchar(255) DEFAULT NULL,
+  `stock_name` varchar(255) DEFAULT NULL,
+  `p_18` decimal(20,2) DEFAULT NULL,
+  `p_17` decimal(20,2) DEFAULT NULL,
+  `p_16` decimal(20,2) DEFAULT NULL,
+  `p_15` decimal(20,2) DEFAULT NULL,
+  `p_14` decimal(20,2) DEFAULT NULL,
+  `p_13` decimal(20,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+
+CREATE FUNCTION Foo(arg1 decimal(20,2), arg2 decimal(20,2)) 
+RETURNS decimal(20,2)     
+BEGIN 
+    DECLARE n decimal(20,2) DEFAULT 0;
+    set n = if(arg1 is null or arg2 is null, null,(arg1-arg2)/arg1);
+    return n;
+END
+
+select Foo(p.p_18,p.p_17),Foo(p.p_17,p.p_16),Foo(p.p_16,p.p_15),Foo(p.p_15,p.p_14),Foo(p.p_14,p.p_13  ) from profit p;
+
+
+select stock_name, stock_code ,Foo(p.p_17,p.p_16) as p1,Foo(p.p_16,p.p_15) as p2,Foo(p.p_15,p.p_14) as p3,Foo(p.p_14,p.p_13  ) as p4 from profit p;
+
+select * from 
+(select stock_name, stock_code ,Foo(p.p_17,p.p_16) as p1,Foo(p.p_16,p.p_15) as p2,Foo(p.p_15,p.p_14) as p3,Foo(p.p_14,p.p_13  ) as p4 from profit p) t where t.p1>0.3 and t.p2>0.3 and t.p3>0.3;
+
+
+4年平均利润率 怎么样
+CREATE FUNCTION avg1(arg1 decimal(20,2), arg2 decimal(20,2), arg3 decimal(20,2), arg4 decimal(20,2)) 
+RETURNS decimal(20,2)     
+BEGIN 
+    DECLARE n decimal(20,2) DEFAULT 0;
+    set n = (arg1+arg2+arg3+arg4)/4;
+    return n;
+END
+
+SELECT
+	*
+FROM
+	(
+		SELECT
+			stock_name,
+			stock_code,
+			Foo (p.p_17, p.p_16) AS p1,
+			Foo (p.p_16, p.p_15) AS p2,
+			Foo (p.p_15, p.p_14) AS p3,
+			Foo (p.p_14, p.p_13) AS p4
+		FROM
+			profit p
+	) t
+WHERE
+	t.p1 > 2
+AND avg1 (t.p1, t.p2, t.p3, t.p4) > 0.3
+AND t.p1 > t.p2
+AND t.p2 > t.p3
+and t.p1>0
+and t.p2>0
+and t.p3>0
+and t.p4>0
+;
+
+
+=======================================================
+select t1.industry_sw,t2.*  from (
+SELECT
+	*
+FROM
+	(
+		SELECT
+			stock_name,
+			stock_code,
+			Foo (p.p_17, p.p_16) AS p1,
+			Foo (p.p_16, p.p_15) AS p2,
+			Foo (p.p_15, p.p_14) AS p3,
+			Foo (p.p_14, p.p_13) AS p4
+		FROM
+			profit p
+		where p_17 >0  and p_16>0 and p_15>0 
+	) t
+WHERE
+ t.p1 > t.p2
+and t.p2>t.p3
+and t.p1>0
+and t.p2>0
+and t.p3>0
+and t.p4>0
+)t2 left join stockinfo t1 on t1.stock_code=t2.stock_code;
+
+
+=======================================================
+选股sql  
+select t1.industry_sw,format(t1.pe,0),r.r_17/100000000 as re_18 ,v1.*  from v1
+ left join stockinfo t1 on t1.stock_code=v1.stock_code 
+ left join revenu r on v1.stock_code=r.stock_code
+where t1.industry_sw ='计算机' order by re_18 desc;
+
+
+
+create table v1 as (
+SELECT
+	*
+FROM
+	(
+		SELECT
+			stock_name,
+			stock_code,
+			Foo (p.p_17, p.p_16) AS p1,
+			Foo (p.p_16, p.p_15) AS p2,
+			Foo (p.p_15, p.p_14) AS p3,
+			Foo (p.p_14, p.p_13) AS p4
+		FROM
+			profit p
+		where p_17 >0  and p_16>0 and p_15>0 
+	) t
+WHERE
+ t.p1 > t.p2
+and t.p2>t.p3
+and t.p1>0
+and t.p2>0
+and t.p3>0
+and t.p4>0
+)
+
+
+select t1.industry_sw,format(t1.pe,0),r.r_17/100000000 as re_18 ,v1.*  from v1
+ left join stockinfo t1 on t1.stock_code=v1.stock_code 
+ left join revenu r on v1.stock_code=r.stock_code
+where t1.industry_sw in (select  distinct industry_sw from stockinfo) order by industry_sw, re_18 desc ;
+
