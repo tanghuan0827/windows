@@ -1,0 +1,146 @@
+创建只有某一个行业的收入利润前10名
+create view t_jisuanji_r as select i.* ,r.r_17/100000000 as r17 ,r.r_16/100000000 as r16,p.p_17/100000000 as p17 from stockinfo i ,revenu r, profit p where i.stock_code = r.stock_code and i.stock_code=p.stock_code and ( i.industry_sw='计算机') order by r17 desc limit 10;
+create view t_jisuanji_p as select i.* ,r.r_17/100000000 as r17 ,r.r_16/100000000 as r16,p.p_17/100000000 as p17 from stockinfo i ,revenu r, profit p where i.stock_code = r.stock_code and i.stock_code=p.stock_code and ( i.industry_sw='计算机') order by p17 desc limit 10;
+
+
+
+将 收入有的 利润没入前10        利润有的 收入没入前10          收入和利润都入前10的   放入到 一个视图中
+create view t_jisuanji as select * from (
+(select *,1 as guilei from stockinfo where stock_code in (
+select stock_code from t_jisuanji_r 
+where stock_code not in (
+select stock_code from t_jisuanji_p) ) )
+union all
+(select *,2 from stockinfo where stock_code in (
+select stock_code from t_jisuanji_p
+where stock_code not in (
+select stock_code from t_jisuanji_r) ) )
+union all
+select *,3 from stockinfo where stock_code in (
+select stock_code from t_jisuanji_p
+where stock_code  in (
+select stock_code from t_jisuanji_r)) )  as total  order by guilei asc,net_profit_is_2017 desc
+
+
+=======================================================
+
+
+
+记得需要视图需要排好序才能使用sql来分类排序  
+行业和收入  行业和利润   
+创建有 收入利润行业 等的一张综合表
+create view t_irp as   
+(
+select i.stock_code,i.stock_name,industry_sw,concept,ev, pe,r_18, r_17,r_16,r_15,r_14, p_18,p_17,p_16,p_15,p_14 from stockinfo i, revenu r,profit p where i.stock_code=r.stock_code and i.stock_code=p.stock_code order by industry_sw,r_17 desc
+);
+create view t_ipr as 
+(
+select i.stock_code,i.stock_name,industry_sw,concept,ev, pe,r_18, r_17,r_16,r_15,r_14, p_18,p_17,p_16,p_15,p_14 from stockinfo i, revenu r,profit p where i.stock_code=r.stock_code and i.stock_code=p.stock_code order by industry_sw,p_17 desc
+)
+
+创建排名表
+create  table t_r_paiming(
+	stock_code varchar(255),
+	stock_name varchar(255),
+	r_17 decimal(20,2),
+	urank integer,
+	industry_sw varchar(255)
+);
+
+create  table t_p_paiming(
+	stock_code varchar(255),
+	stock_name varchar(255),
+	p_17 decimal(20,2),
+	urank integer,
+	industry_sw varchar(255)
+);
+
+
+将数据插入排名表
+收入排名表
+SET @preAge:=0;
+SET @row:=0;
+
+insert into t_r_paiming(
+SELECT stock_code,stock_name, r_17, 
+CASE 
+WHEN @curGroup=industry_sw THEN @row := @row + 1 
+WHEN @curGroup<>industry_sw THEN @row:=1 
+END urank, 
+@curGroup:=industry_sw as industry_sw
+FROM t_irp 
+ORDER BY industry_sw DESC, r_17 DESC);
+
+利润排名表
+SET @preAge:=0;
+SET @row:=0;
+
+insert into t_p_paiming(
+SELECT stock_code,stock_name, p_17, 
+CASE 
+WHEN @curGroup=industry_sw THEN @row := @row + 1 
+WHEN @curGroup<>industry_sw THEN @row:=1 
+END urank, 
+@curGroup:=industry_sw as industry_sw
+FROM t_irp
+ORDER BY industry_sw DESC, p_17 DESC);
+
+
+=======================================================
+SELECT
+	tp.*, tr.*
+FROM
+	t_p_paiming tp,
+	t_r_paiming tr
+WHERE
+	tp.stock_code = tr.stock_code
+AND tp.urank > tr.urank
+AND tp.urank <= 50
+AND tr.urank <= 50
+AND tp.industry_sw IN (
+	'计算机',
+	'化工',
+	'医药生物',
+	'非银金融',
+	'有色金属',
+	'电气设备'
+) 
+
+
+=======================================================
+select * from (
+
+SELECT
+	tp.stock_code,tp.stock_name,format(r_17/100000000,2), format(p_17/100000000,2) , tp.urank as p_rank,tr.urank as r_rank ,
+	case when tp.urank<=10 then tr.urank -tp.urank
+			 when tp.urank>10 and  tr.urank -tp.urank>10 then tr.urank -tp.urank
+			 else null
+	end as urank_null,
+	tp.industry_sw
+FROM
+	t_p_paiming tp,
+	t_r_paiming tr
+WHERE
+	tp.stock_code = tr.stock_code
+AND tp.urank < tr.urank
+AND tp.urank <= 60
+AND tr.urank <= 60
+AND tp.industry_sw IN (
+	'计算机',
+	'化工',
+	'医药生物',
+	'非银金融',
+	'有色金属',
+	'电气设备'
+) 
+
+) as total
+
+where urank_null is not null order by industry_sw desc, urank_null desc 
+
+
+
+
+
+
+
