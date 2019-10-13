@@ -1,0 +1,58 @@
+命令提示符添加回车换行符
+sudo vim /etc/bash.bashrc
+PS1='\n${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+
+========================================
+本机关于vmworkstation的设置
+
+不要安装vmbox，连接网络会有冲突，需要重启
+
+网络适配器-》自定义-》VMnet8(Nat 模式)
+
+虚拟网络编辑器
+子网ip 192.168.1.0
+子网掩码 255.255.255.0
+将主机虚拟适配器连接到此网络(V)  启用
+使用本地DHCP服务奖IP地址分配给虚拟机(D)    禁用
+网关 192.168.1.2
+========================================
+关闭windwos防火墙
+
+========================================
+关闭ubuntu防火墙
+sudo  ufw disable
+sudo  ufw status
+sudo ufw allow 22
+
+========================================
+
+nat模式配置静态ip
+sudo vim /etc/network/interfaces
+auto lo
+iface lo inet loopback
+
+auto ens33
+iface ens33 inet static
+address 192.168.1.100
+netmask 255.255.255.0
+gateway 192.168.1.2
+
+nameserver 8.8.8.8
+
+========================================
+xshell
+xshell5可能需要安装32版本的dll   (windows下使用Xshell时出现丢失msvcr110.dll等dll)
+
+sudo apt-get install openssh-server
+sudo ps -e |grep ssh
+sudo service ssh start
+(ssh登录不上)
+sudo rm -rf /var/cache/apt/archives/
+
+
+工具-》选项-》键盘和鼠标
+选择粘贴 设置
+右键 复制的设置
+
+
+
