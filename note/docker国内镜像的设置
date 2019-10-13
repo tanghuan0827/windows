@@ -1,0 +1,8 @@
+/etc/docker/daemon.json
+
+{
+  "registry-mirrors": [
+    "https://dockerhub.azk8s.cn",
+    "https://reg-mirror.qiniu.com"
+  ]
+}
