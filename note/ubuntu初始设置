@@ -15,6 +15,11 @@ PS1='\n${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 将主机虚拟适配器连接到此网络(V)  启用
 使用本地DHCP服务奖IP地址分配给虚拟机(D)    禁用
 网关 192.168.1.2
+
+sudo vi /etc/resolv.conf
+nameserver 8.8.8.8
+
+sudo service networking restart
 ========================================
 关闭windwos防火墙
 
