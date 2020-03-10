@@ -1,0 +1,32 @@
+"""""""""""""""""""""""""""""""""""""""""""
+""更改快捷键 emmet
+let g:user_emmet_expandabbr_key = '<Tab>'
+
+"""""""""""""""""""""""""""""""""""""""""""
+
+" Specify a directory for plugins
+" - For Neovim: stdpath('data') . '/plugged'
+" - Avoid using standard Vim directory names like 'plugin'
+
+call plug#begin('D:\ware\vim81\plugged')
+
+Plug 'https://git::@github.com/rakr/vim-one.git'
+"Plug 'sonph/onehalf'
+Plug 'mattn/emmet-vim'
+
+
+
+
+call plug#end()
+
+"""""""""""""""""""""""""""""""""
+""设置主题
+colorscheme one
+"set background=dark " for the dark version
+set background=light " for the light version
+
+
+"" 设置字体
+"set guifont=Courier_new:h11:b:cDEFAULT
+set guifont=Courier_new:h11:b:cDEFAULT
+set linespace=10
