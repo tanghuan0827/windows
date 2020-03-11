@@ -85,6 +85,9 @@ set linespace=10
 "设置tab
 set tabstop=4	
 
+"设置批量缩进
+set shiftwidth=4
+
 "自动配对标点符号
 inoremap ( ()<Esc>i
 inoremap [ []<Esc>i
@@ -102,5 +105,7 @@ set nu
 "允许使用鼠标
 set mouse=a 
 
-"设置编码
+"设置编码  gvim的编码
 set fileencodings=utf-8,gbk,big5
+"如果 vim查看编码 :set fileencoding
+"如果 vim设置编码 :set fileencoding=utf8
