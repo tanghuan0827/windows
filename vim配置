@@ -12,7 +12,7 @@ $VIM=D:/ware/Vim/_vimrc
 
 """""""""""""""""""""""""""""""""""""""""""
 ""更改快捷键 emmet
-let g:user_emmet_expandabbr_key = '<C-Q>'
+let g:user_emmet_expandabbr_key = '<C-A>'
 
 """""""""""""""""""""""""""""""""""""""""""
 
