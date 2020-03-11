@@ -39,11 +39,27 @@ colorscheme one
 set background=light " for the light version
 
 
-"" 设置字体
+"" 设置字体 行距 
 "set guifont=Courier_new:h11:b:cDEFAULT
 set guifont=Courier_new:h11:b:cDEFAULT
 set linespace=10
 
+"设置tab
+set tabstop=4	
 
+"自动配对标点符号
+inoremap ( ()<Esc>i
+inoremap [ []<Esc>i
+inoremap < <><Esc>i
+inoremap { {}<Esc>i
+inoremap ' ''<Esc>i
+inoremap " ""<Esc>i
 
+"插入模式下插入一行
+inoremap <C-j> <Esc>o
 
+"显示行号
+set nu
+      	
+"允许使用鼠标
+set mouse=a 
