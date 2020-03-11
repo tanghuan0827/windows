@@ -1,6 +1,18 @@
+函数加!符号
+function! MyDiff()
+
+环境变量配置
+$VIM=D:/ware/Vim/_vimrc
+:so $VIM
+
+
+
+
+
+
 """""""""""""""""""""""""""""""""""""""""""
 ""更改快捷键 emmet
-let g:user_emmet_expandabbr_key = '<Tab>'
+let g:user_emmet_expandabbr_key = '<C-Q>'
 
 """""""""""""""""""""""""""""""""""""""""""
 
@@ -13,6 +25,7 @@ call plug#begin('D:\ware\vim81\plugged')
 Plug 'https://git::@github.com/rakr/vim-one.git'
 "Plug 'sonph/onehalf'
 Plug 'mattn/emmet-vim'
+Plug 'https://github.com/vim-scripts/VisIncr.git'
 
 
 
@@ -30,3 +43,7 @@ set background=light " for the light version
 "set guifont=Courier_new:h11:b:cDEFAULT
 set guifont=Courier_new:h11:b:cDEFAULT
 set linespace=10
+
+
+
+
