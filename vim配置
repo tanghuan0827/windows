@@ -64,8 +64,10 @@ Plug 'https://git::@github.com/rakr/vim-one.git'
 "Plug 'sonph/onehalf'
 Plug 'mattn/emmet-vim'
 Plug 'https://github.com/vim-scripts/VisIncr.git'
-
-
+Plug 'https://git::@github.com/beautify-web/js-beautify.git'
+Plug 'https://git::@github.com/jiangmiao/simple-javascript-indenter.git'
+Plug 'https://git::@github.com/preservim/nerdcommenter.git'
+Plug 'https://git::@github.com/tomtom/tcomment_vim.git'
 
 
 call plug#end()
@@ -84,6 +86,13 @@ set linespace=10
 
 "设置tab
 set tabstop=4	
+setlocal shiftwidth=4 "换行自动缩进4个空格
+
+filetype on 
+filetype plugin on 
+filetype indent on 
+"set smartindent "设置自动缩进
+set autoindent  "即每行的缩进值与上一行相等
 
 "设置批量缩进
 set shiftwidth=4
@@ -109,3 +118,52 @@ set mouse=a
 set fileencodings=utf-8,gbk,big5
 "如果 vim查看编码 :set fileencoding
 "如果 vim设置编码 :set fileencoding=utf8
+
+"设置alt+j k移动代码的快捷键
+nmap <M-j> mz:m+<cr>`z
+nmap <M-k> mz:m-2<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+
+
+" 在浏览器预览 for win32  vim调用chrome浏览器设置快捷键 f4+C+R
+function! ViewInBrowser(name)
+    let file = expand("%:p")
+    exec ":update " . file
+    let l:browsers = {
+        \"cr":"C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
+        \"ff":"D:/WebDevelopment/Browser/Firefox/Firefox.exe",
+        \"op":"D:/WebDevelopment/Browser/Opera/opera.exe",
+        \"ie":"C:/progra~1/intern~1/iexplore.exe",
+        \"ie6":"D:/WebDevelopment/Browser/IETester/IETester.exe -ie6",
+        \"ie7":"D:/WebDevelopment/Browser/IETester/IETester.exe -ie7",
+        \"ie8":"D:/WebDevelopment/Browser/IETester/IETester.exe -ie8",
+        \"ie9":"D:/WebDevelopment/Browser/IETester/IETester.exe -ie9",
+        \"iea":"D:/WebDevelopment/Browser/IETester/IETester.exe -all"
+    \}
+    let htdocs='E:\\apmxe\\htdocs\\'
+    let strpos = stridx(file, substitute(htdocs, '\\\\', '\', "g"))
+    if strpos == -1
+       exec ":silent !start ". l:browsers[a:name] ." file://" . file
+    else
+        let file=substitute(file, htdocs, "http://127.0.0.1:8090/", "g")
+        let file=substitute(file, '\\', '/', "g")
+        exec ":silent !start ". l:browsers[a:name] file
+    endif
+endfunction
+nmap <f4>cr :call ViewInBrowser("cr")<cr>
+nmap <f4>ff :call ViewInBrowser("ff")<cr>
+nmap <f4>op :call ViewInBrowser("op")<cr>
+nmap <f4>ie :call ViewInBrowser("ie")<cr>
+nmap <f4>ie6 :call ViewInBrowser("ie6")<cr>
+
+
+"html中javascript代码增加插件
+:let g:html_indent_script1 = "inc"
+:let g:html_indent_style1 = "inc"
+:let g:html_indent_inctags = "html,body,head,tbody"
+
+
+"nerdcommenter的插件 增加空格
+let g:NERDSpaceDelims = 1
