@@ -73,6 +73,7 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'stedolan/jq'
 Plug 'altercation/vim-colors-solarized'
+Plug 'https://git::@github.com/pangloss/vim-javascript.git'
 
 call plug#end()
 
@@ -181,7 +182,15 @@ let g:NERDSpaceDelims = 1
 noremap <F3> :Autoformat<CR>
 let g:autoformat_verbosemode=1
 
+"设置缩进
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 let g:indent_guides_color_change_percent = 10
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=lightgrey   ctermbg=3
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#e4e4e4   ctermbg=3
+
+"设置光标
+set cursorline
+
+"设置光标颜色
+hi CursorLine   cterm=NONE ctermbg=red         ctermfg=black              guibg=  #ffd700             guifg=#5fd75f              
+"hi CursorLine   cterm=NONE   ctermfg=black  guifg=black             
