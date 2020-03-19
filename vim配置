@@ -68,15 +68,23 @@ Plug 'https://git::@github.com/beautify-web/js-beautify.git'
 Plug 'https://git::@github.com/jiangmiao/simple-javascript-indenter.git'
 Plug 'https://git::@github.com/preservim/nerdcommenter.git'
 Plug 'https://git::@github.com/tomtom/tcomment_vim.git'
-
+Plug 'preservim/nerdtree'
+Plug 'Chiel92/vim-autoformat'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'stedolan/jq'
+Plug 'altercation/vim-colors-solarized'
 
 call plug#end()
 
 """""""""""""""""""""""""""""""""
 ""设置主题
-colorscheme one
+"colorscheme one
 "set background=dark " for the dark version
-set background=light " for the light version
+"set background=light " for the light version
+
+syntax enable
+set background=light
+colorscheme solarized
 
 
 "" 设置字体 行距 
@@ -86,6 +94,7 @@ set linespace=10
 
 "设置tab
 set tabstop=4	
+set expandtab
 setlocal shiftwidth=4 "换行自动缩进4个空格
 
 filetype on 
@@ -167,3 +176,12 @@ nmap <f4>ie6 :call ViewInBrowser("ie6")<cr>
 
 "nerdcommenter的插件 增加空格
 let g:NERDSpaceDelims = 1
+
+"F3自动格式化代码 Chiel92/vim-autoformat
+noremap <F3> :Autoformat<CR>
+let g:autoformat_verbosemode=1
+
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_color_change_percent = 10
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=lightgrey   ctermbg=3
