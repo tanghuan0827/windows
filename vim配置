@@ -192,7 +192,6 @@ hi IndentGuidesEven guibg=NONE ctermbg=4
 
 
 
-
 "设置光标颜色         
 "hi CursorLine   cterm=NONE   ctermfg=black  guifg=black          
 "hi Cursor guifg=#eeeeee guibg=#008700  
