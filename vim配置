@@ -184,10 +184,11 @@ let g:autoformat_verbosemode=1
 
 "设置缩进
 let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_auto_colors = 1
+let g:indent_guides_auto_colors = 0
 let g:indent_guides_color_change_percent = 10
-"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=NONE   ctermbg=3
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  guibg=NONE   ctermbg=4
+hi IndentGuidesOdd  guibg=#E3DDCC   ctermbg=3
+hi IndentGuidesEven guibg=NONE ctermbg=4
+
 
 
 
