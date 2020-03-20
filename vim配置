@@ -58,34 +58,8 @@ let g:user_emmet_expandabbr_key = '<C-A>'
 " - For Neovim: stdpath('data') . '/plugged'
 " - Avoid using standard Vim directory names like 'plugin'
 
-call plug#begin('D:\ware\vim81\plugged')
 
-Plug 'https://git::@github.com/rakr/vim-one.git'
-"Plug 'sonph/onehalf'
-Plug 'mattn/emmet-vim'
-Plug 'https://github.com/vim-scripts/VisIncr.git'
-Plug 'https://git::@github.com/beautify-web/js-beautify.git'
-Plug 'https://git::@github.com/jiangmiao/simple-javascript-indenter.git'
-Plug 'https://git::@github.com/preservim/nerdcommenter.git'
-Plug 'https://git::@github.com/tomtom/tcomment_vim.git'
-Plug 'preservim/nerdtree'
-Plug 'Chiel92/vim-autoformat'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'stedolan/jq'
-Plug 'altercation/vim-colors-solarized'
-Plug 'https://git::@github.com/pangloss/vim-javascript.git'
 
-call plug#end()
-
-"""""""""""""""""""""""""""""""""
-""设置主题
-"colorscheme one
-"set background=dark " for the dark version
-"set background=light " for the light version
-
-syntax enable
-set background=light
-colorscheme solarized
 
 
 "" 设置字体 行距 
@@ -95,14 +69,17 @@ set linespace=10
 
 "设置tab
 set tabstop=4	
-set expandtab
-setlocal shiftwidth=4 "换行自动缩进4个空格
+"set expandtab
+set noexpandtab
+"setlocal shiftwidth=4 "换行自动缩进4个空格
+
 
 filetype on 
 filetype plugin on 
 filetype indent on 
-"set smartindent "设置自动缩进
+set smartindent "设置自动缩进
 set autoindent  "即每行的缩进值与上一行相等
+set ai! "设置自动缩进
 
 "设置批量缩进
 set shiftwidth=4
@@ -169,11 +146,46 @@ nmap <f4>ie :call ViewInBrowser("ie")<cr>
 nmap <f4>ie6 :call ViewInBrowser("ie6")<cr>
 
 
-"html中javascript代码增加插件
-:let g:html_indent_script1 = "inc"
-:let g:html_indent_style1 = "inc"
-:let g:html_indent_inctags = "html,body,head,tbody"
 
+call plug#begin('D:\ware\vim81\plugged')
+
+Plug 'https://git::@github.com/rakr/vim-one.git'
+"Plug 'sonph/onehalf'
+Plug 'mattn/emmet-vim'
+Plug 'https://github.com/vim-scripts/VisIncr.git'
+Plug 'https://git::@github.com/beautify-web/js-beautify.git'
+Plug 'https://git::@github.com/jiangmiao/simple-javascript-indenter.git'
+Plug 'https://git::@github.com/preservim/nerdcommenter.git'
+Plug 'https://git::@github.com/tomtom/tcomment_vim.git'
+Plug 'preservim/nerdtree'
+Plug 'Chiel92/vim-autoformat'
+Plug 'nathanaelkane/vim-indent-guides'
+"Plug 'stedolan/jq'
+Plug 'altercation/vim-colors-solarized'
+Plug 'https://git::@github.com/pangloss/vim-javascript.git'
+Plug 'elzr/vim-json'
+Plug 'https://git::@github.com/Vimjas/vim-python-pep8-indent.git'
+
+call plug#end()
+
+let g:js_indent  ="D:/ware/Vim/vimfiles/web-indent/javascript.vim"
+let g:html_indent  ="D:/ware/Vim/vimfiles/web-indent/html.vim"
+
+"""""""""""""""""""""""""""""""""
+""设置主题
+"colorscheme one
+"set background=dark " for the dark version
+"set background=light " for the light version
+
+syntax enable
+set background=light
+colorscheme solarized
+
+"html中javascript代码增加插件
+let g:html_indent_script1 = "auto"
+let g:html_indent_style1 = "inc"
+":let g:html_indent_inctags = "html,body,head,tbody"
+let g:htmo_indent_autotags="html,script"
 
 "nerdcommenter的插件 增加空格
 let g:NERDSpaceDelims = 1
@@ -182,7 +194,7 @@ let g:NERDSpaceDelims = 1
 noremap <F3> :Autoformat<CR>
 let g:autoformat_verbosemode=1
 
-"设置缩进
+"设置缩进 vim-indent-guides 
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 let g:indent_guides_color_change_percent = 10
