@@ -77,9 +77,14 @@ set noexpandtab
 filetype on 
 filetype plugin on 
 filetype indent on 
-set smartindent "设置自动缩进
-set autoindent  "即每行的缩进值与上一行相等
-set ai! "设置自动缩进
+"set smartindent "设置自动缩进
+"set autoindent  "即每行的缩进值与上一行相等
+"set ai! "设置自动缩进
+
+set cindent "c语言的缩进
+
+
+set cinkeys=:,0#,!^F,o,O,e
 
 "设置批量缩进
 set shiftwidth=4
@@ -200,8 +205,6 @@ let g:indent_guides_auto_colors = 0
 let g:indent_guides_color_change_percent = 10
 hi IndentGuidesOdd  guibg=#E3DDCC   ctermbg=3
 hi IndentGuidesEven guibg=NONE ctermbg=4
-
-
 
 
 "设置光标颜色         
