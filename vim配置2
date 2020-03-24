@@ -46,13 +46,9 @@ endfunction
 
 
 
+"*************************************************************
 
 
-"""""""""""""""""""""""""""""""""""""""""""
-""更改快捷键 emmet
-let g:user_emmet_expandabbr_key = '<C-A>'
-
-"""""""""""""""""""""""""""""""""""""""""""
 
 "" 设置字体 行距 
 "set guifont=Courier_new:h11:b:cDEFAULT
@@ -69,21 +65,15 @@ set cindent "c语言的缩进
 
 "set cinkeys=:,0#,!^F,o,O,e
 "cinoptions=>s,e0,n0,f0,{0,}0,^0,L-1,:s,=s,l0,b0,gs,hs,N0,E0,ps,ts,is,+s,c3,C0,/0,(2s,us,U0,w0,W0,k0,m0,j0,J0,)20,*70,#0
-"缩进 修改了L-1改为了L0  对于{这个就不会缩进到第一列了，而是保持原来的
-set cinoptions=>s,e0,n0,f0,{0,}0,^0,L0,:s,=s,l0,b0,gs,hs,N0,E0,ps,ts,is,+s,c3,C0,/0,(2s,us,U0,w0,W0,k0,m0,j0,J0,)20,*70,#0
+"缩进 修改了j0改为了j0  调整javascript代码
+set cinoptions=>s,e0,n0,f0,{0,}0,^0,L0,:s,=s,l0,b0,gs,hs,N0,E0,ps,ts,is,+s,c3,C0,/0,(2s,us,U0,w0,W0,k0,m0,j1,J1,)20,*70,#0
 
+set shiftwidth=4
 
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
 
-"自动配对标点符号
-inoremap ( ()<Esc>i
-inoremap [ []<Esc>i
-inoremap < <><Esc>i
-"inoremap { {}<Esc>i
-inoremap ' ''<Esc>i
-inoremap " ""<Esc>i
-
-"插入模式下插入一行
-inoremap <C-j> <Esc>o
+set cinkeys=0{,0},:,0#,!<Tab>,!^F
 
 "显示行号
 set nu
@@ -91,10 +81,40 @@ set nu
 "允许使用鼠标
 set mouse=a 
 
-"设置编码  gvim的编码
-set fileencodings=utf-8,gbk,big5
+
+"===================================================================
+ "  Gvim中文菜单乱码解决方案
+
+" 设置文件编码格式
+set encoding=utf-8
+set fileencodings=utf-8,chinese,latin-1,gbk,gb18030,gk2312
+if has("win")
+ set fileencoding=chinese
+else
+ set fileencoding=utf-8
+endif
+
+"解决菜单乱码
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
+"解决consle提示信息输出乱码
+language messages zh_CN.utf-8
+ 
 "如果 vim查看编码 :set fileencoding
 "如果 vim设置编码 :set fileencoding=utf8
+
+"===================================================================
+"设置光标颜色         
+"hi CursorLine   cterm=NONE   ctermfg=black  guifg=black          
+"hi Cursor guifg=#eeeeee guibg=#008700  
+"hi Cursor  guibg=#ffd700  guifg=#000000 
+"hi iCursor guifg=white guibg=#32CD32
+
+
+
+"插入模式下插入一行
+inoremap <C-j> <Esc>o
 
 "设置alt+j k移动代码的快捷键
 nmap <M-j> mz:m+<cr>`z
@@ -102,7 +122,13 @@ nmap <M-k> mz:m-2<cr>`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
-
+"自动配对标点符号
+inoremap ( ()<Esc>i
+inoremap [ []<Esc>i
+inoremap < <><Esc>i
+inoremap { {}<Esc>i
+inoremap ' ''<Esc>i
+inoremap " ""<Esc>i
 
 " 在浏览器预览 for win32  vim调用chrome浏览器设置快捷键 f4+C+R
 function! ViewInBrowser(name)
@@ -145,14 +171,16 @@ Plug 'https://git::@github.com/tomtom/tcomment_vim.git'
 Plug 'preservim/nerdtree'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'altercation/vim-colors-solarized'
-Plug 'docunext/closetag.vim'
+Plug 'tpope/vim-surround'
+Plug 'Chiel92/vim-autoformat'
+Plug 'maksimr/vim-jsbeautify' 
 
 call plug#end()
 
 
 
 """""""""""""""""""""""""""""""""
-""设置主题
+""设置主题 solarized
 "colorscheme one
 "set background=dark " for the dark version
 "set background=light " for the light version
@@ -170,11 +198,30 @@ hi IndentGuidesOdd  guibg=#E3DDCC   ctermbg=3
 hi IndentGuidesEven guibg=NONE ctermbg=4
 
 
-"设置光标颜色         
-"hi CursorLine   cterm=NONE   ctermfg=black  guifg=black          
-"hi Cursor guifg=#eeeeee guibg=#008700  
-"hi Cursor  guibg=#ffd700  guifg=#000000 
-"hi iCursor guifg=white guibg=#32CD32
+"更改快捷键 emmet
+let g:user_emmet_expandabbr_key = '<C-A>'
+
+"设置html标签成对出现 closetag  
+let g:closetag_html_style=1
+
+"F3自动格式化代码  vim-autoformat
+noremap <F3> :Autoformat<CR>
+let g:autoformat_verbosemode=1
+
+" f6的快捷键
+" jsbeautify {
+	map <F6> :call JsBeautify()<cr>
+	" or
+	autocmd FileType javascript noremap <buffer>  <F6> :call JsBeautify()<cr>
+	" for json
+	autocmd FileType json noremap <buffer> <F6> :call JsonBeautify()<cr>
+	" for jsx
+	autocmd FileType jsx noremap <buffer> <F6> :call JsxBeautify()<cr>
+	" for html
+	autocmd FileType html noremap <buffer> <F6> :call HtmlBeautify()<cr>
+	" for css or scss
+	autocmd FileType css noremap <buffer> <F6> :call CSSBeautify()<cr>
+" }
 
 hi Cursor guifg=black guibg=#32CD32  
 hi MatchParen ctermbg=Yellow guifg=white guibg=#FFD700
