@@ -66,14 +66,14 @@ set cindent "c语言的缩进
 "set cinkeys=:,0#,!^F,o,O,e
 "cinoptions=>s,e0,n0,f0,{0,}0,^0,L-1,:s,=s,l0,b0,gs,hs,N0,E0,ps,ts,is,+s,c3,C0,/0,(2s,us,U0,w0,W0,k0,m0,j0,J0,)20,*70,#0
 "缩进 修改了j0改为了j0  调整javascript代码
-set cinoptions=>s,e0,n0,f0,{0,}0,^0,L0,:s,=s,l0,b0,gs,hs,N0,E0,ps,ts,is,+s,c3,C0,/0,(2s,us,U0,w0,W0,k0,m0,j1,J1,)20,*70,#0
+set cinoptions=>s,e0,n0,f0,{0,}0,^0,Ls,:s,=s,l0,b0,gs,hs,N0,E0,ps,ts,is,+s,c3,C0,/0,(2s,us,U0,w0,W0,k0,m0,js,Js,)20,*70,#0
 
 set shiftwidth=4
 
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
-set cinkeys=0{,0},:,0#,!<Tab>,!^F
+
 
 "显示行号
 set nu
@@ -225,3 +225,11 @@ let g:autoformat_verbosemode=1
 
 hi Cursor guifg=black guibg=#32CD32  
 hi MatchParen ctermbg=Yellow guifg=white guibg=#FFD700
+
+" 设置NerdTree
+map <F3> :NERDTreeMirror<CR>
+map <F3> :NERDTreeToggle<CR>
+
+" 设置nerdtree目录结构始终在左边
+let g:NERDTreeWinPos ="left"
+
